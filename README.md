@@ -1,7 +1,7 @@
 # Aviko Media — Strategic Design & Commercial Video Production Agency
 
 [![Live Site](https://img.shields.io/badge/Live_Site-aviko--creative--studio.vercel.app-C9A227?style=for-the-badge&logo=vercel&logoColor=white)](https://aviko-creative-studio.vercel.app/)
-[![License](https://img.shields.io/badge/License-MIT-blue?style=for-the-badge)](LICENSE)
+[![License: Proprietary](https://img.shields.io/badge/License-Proprietary%20%7C%20All%20Rights%20Reserved-red?style=for-the-badge)](LICENSE)
 [![Tech](https://img.shields.io/badge/Stack-HTML5%20%7C%20CSS3%20%7C%20Vanilla%20JS-F16529?style=for-the-badge&logo=html5&logoColor=white)](https://aviko-creative-studio.vercel.app/)
 
 A high-performance, multi-page digital showcase engineered for **Aviko Media**, a premier creative agency specializing in strategic brand identity, packaging architecture, digital product design, and 4K commercial motion reels.
@@ -117,6 +117,8 @@ The repository is configured for zero-configuration instant deployment on [Verce
 
 ---
 
-## 📄 License
+## 📄 License & Usage
 
-Published under the [MIT License](LICENSE). Built for Aviko Media.
+**Proprietary & Confidential — All Rights Reserved.** Copyright &copy; 2026 Aviko Media.
+
+This is a personal, private showcase repository. It is **not** open-source and not intended for external or third-party reuse. No permission is granted to copy, reproduce, fork for redistribution, modify, sublicense, or deploy any portion of this codebase, design assets, or media without explicit prior written authorization from the owner.
