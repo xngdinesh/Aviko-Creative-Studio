@@ -1,0 +1,8 @@
+# Sensitive / Raw input files
+site data/
+*.py
+*.log
+
+# OS metadata
+.DS_Store
+Thumbs.db

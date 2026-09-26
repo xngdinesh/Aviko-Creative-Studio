@@ -1,0 +1,266 @@
+{
+  "portfolio": [
+    {
+      "id": "branding-01",
+      "file": "assets/images/branding-01.jpg",
+      "webp": "assets/images/branding-01.webp",
+      "category": "Branding & Identity",
+      "title": "Minimalist Executive Brand Mark"
+    },
+    {
+      "id": "branding-02",
+      "file": "assets/images/branding-02.jpg",
+      "webp": "assets/images/branding-02.webp",
+      "category": "Branding & Identity",
+      "title": "Luxury Home Decor Visual Identity"
+    },
+    {
+      "id": "branding-03",
+      "file": "assets/images/branding-03.jpg",
+      "webp": "assets/images/branding-03.webp",
+      "category": "Branding & Identity",
+      "title": "Geometric Vector Iconography"
+    },
+    {
+      "id": "packaging-01",
+      "file": "assets/images/packaging-01.jpg",
+      "webp": "assets/images/packaging-01.webp",
+      "category": "Packaging & Product",
+      "title": "Artisan Food Pouch Packaging"
+    },
+    {
+      "id": "packaging-02",
+      "file": "assets/images/packaging-02.jpg",
+      "webp": "assets/images/packaging-02.webp",
+      "category": "Packaging & Product",
+      "title": "Custom Retail Box Packaging"
+    },
+    {
+      "id": "packaging-03",
+      "file": "assets/images/packaging-03.jpg",
+      "webp": "assets/images/packaging-03.webp",
+      "category": "Packaging & Product",
+      "title": "Matte Stand-Up Product Pouch"
+    },
+    {
+      "id": "print-01",
+      "file": "assets/images/print-01.jpg",
+      "webp": "assets/images/print-01.webp",
+      "category": "Print Design",
+      "title": "Premium Foil Accent Business Cards"
+    },
+    {
+      "id": "print-02",
+      "file": "assets/images/print-02.jpg",
+      "webp": "assets/images/print-02.webp",
+      "category": "Print Design",
+      "title": "Luxury Stationery & Card Mockup"
+    },
+    {
+      "id": "print-03",
+      "file": "assets/images/print-03.jpg",
+      "webp": "assets/images/print-03.webp",
+      "category": "Print Design",
+      "title": "Modern Restaurant Dine-In Menu"
+    },
+    {
+      "id": "print-04",
+      "file": "assets/images/print-04.jpg",
+      "webp": "assets/images/print-04.webp",
+      "category": "Print Design",
+      "title": "Corporate Tri-Fold Presentation Brochure"
+    },
+    {
+      "id": "marketing-01",
+      "file": "assets/images/marketing-01.jpg",
+      "webp": "assets/images/marketing-01.webp",
+      "category": "Marketing & Advertising",
+      "title": "Editorial Campaign Advertising Poster"
+    },
+    {
+      "id": "marketing-02",
+      "file": "assets/images/marketing-02.jpg",
+      "webp": "assets/images/marketing-02.webp",
+      "category": "Marketing & Advertising",
+      "title": "Creative Visual Type Poster Series"
+    },
+    {
+      "id": "marketing-03",
+      "file": "assets/images/marketing-03.jpg",
+      "webp": "assets/images/marketing-03.webp",
+      "category": "Marketing & Advertising",
+      "title": "Commercial Brand Advertising Creative"
+    },
+    {
+      "id": "marketing-04",
+      "file": "assets/images/marketing-04.jpg",
+      "webp": "assets/images/marketing-04.webp",
+      "category": "Marketing & Advertising",
+      "title": "Corporate Showcase Promotional Flyer"
+    },
+    {
+      "id": "marketing-05",
+      "file": "assets/images/marketing-05.jpg",
+      "webp": "assets/images/marketing-05.webp",
+      "category": "Marketing & Advertising",
+      "title": "Digital Product Launch Banner"
+    },
+    {
+      "id": "marketing-06",
+      "file": "assets/images/marketing-06.jpg",
+      "webp": "assets/images/marketing-06.webp",
+      "category": "Marketing & Advertising",
+      "title": "Special Event Headline Poster"
+    },
+    {
+      "id": "marketing-07",
+      "file": "assets/images/marketing-07.jpg",
+      "webp": "assets/images/marketing-07.webp",
+      "category": "Marketing & Advertising",
+      "title": "Widescreen Promotional Banner"
+    },
+    {
+      "id": "marketing-08",
+      "file": "assets/images/marketing-08.jpg",
+      "webp": "assets/images/marketing-08.webp",
+      "category": "Marketing & Advertising",
+      "title": "Outdoor Billboard & Signage Display"
+    },
+    {
+      "id": "social-01",
+      "file": "assets/images/social-01.jpg",
+      "webp": "assets/images/social-01.webp",
+      "category": "Social Media Design",
+      "title": "High-Engagement Instagram Post"
+    },
+    {
+      "id": "social-02",
+      "file": "assets/images/social-02.jpg",
+      "webp": "assets/images/social-02.webp",
+      "category": "Social Media Design",
+      "title": "Dynamic Feed Carousel Graphic"
+    },
+    {
+      "id": "social-03",
+      "file": "assets/images/social-03.jpg",
+      "webp": "assets/images/social-03.webp",
+      "category": "Social Media Design",
+      "title": "Product Feature Social Square"
+    },
+    {
+      "id": "social-04",
+      "file": "assets/images/social-04.jpg",
+      "webp": "assets/images/social-04.webp",
+      "category": "Social Media Design",
+      "title": "Brand Story Highlight Creative"
+    },
+    {
+      "id": "social-05",
+      "file": "assets/images/social-05.jpg",
+      "webp": "assets/images/social-05.webp",
+      "category": "Social Media Design",
+      "title": "Flash Sale Promotional Graphic"
+    },
+    {
+      "id": "social-06",
+      "file": "assets/images/social-06.jpg",
+      "webp": "assets/images/social-06.webp",
+      "category": "Social Media Design",
+      "title": "Creator Media Banner Post"
+    },
+    {
+      "id": "social-07",
+      "file": "assets/images/social-07.jpg",
+      "webp": "assets/images/social-07.webp",
+      "category": "Social Media Design",
+      "title": "Seasonal Campaign Announcement"
+    },
+    {
+      "id": "social-08",
+      "file": "assets/images/social-08.jpg",
+      "webp": "assets/images/social-08.webp",
+      "category": "Social Media Design",
+      "title": "Retail Promotion Display Card"
+    },
+    {
+      "id": "social-09",
+      "file": "assets/images/social-09.jpg",
+      "webp": "assets/images/social-09.webp",
+      "category": "Social Media Design",
+      "title": "Modern Typographic Social Creative"
+    },
+    {
+      "id": "social-10",
+      "file": "assets/images/social-10.jpg",
+      "webp": "assets/images/social-10.webp",
+      "category": "Social Media Design",
+      "title": "Luxury Dark-Mode Product Post"
+    },
+    {
+      "id": "social-11",
+      "file": "assets/images/social-11.jpg",
+      "webp": "assets/images/social-11.webp",
+      "category": "Social Media Design",
+      "title": "Client Spotlight Social Graphic"
+    },
+    {
+      "id": "social-12",
+      "file": "assets/images/social-12.jpg",
+      "webp": "assets/images/social-12.webp",
+      "category": "Social Media Design",
+      "title": "Festival Celebration Social Graphic"
+    },
+    {
+      "id": "uiux-01",
+      "file": "assets/images/uiux-01.jpg",
+      "webp": "assets/images/uiux-01.webp",
+      "category": "UI/UX & Web Design",
+      "title": "Mobile App User Interface Concept"
+    },
+    {
+      "id": "uiux-02",
+      "file": "assets/images/uiux-02.jpg",
+      "webp": "assets/images/uiux-02.webp",
+      "category": "UI/UX & Web Design",
+      "title": "Web Dashboard & Analytics UI"
+    }
+  ],
+  "videos": [
+    {
+      "id": "showreel-01",
+      "file": "assets/videos/showreel-01.mp4",
+      "title": "Brand Anthem & Cinematic Intro",
+      "description": "Dynamic motion graphics introducing brand presence with high tempo visual impact."
+    },
+    {
+      "id": "showreel-02",
+      "file": "assets/videos/showreel-02.mp4",
+      "title": "3D Motion & Social Promo Reel",
+      "description": "Commercial social media promo teaser tailored for viral reach and audience retention."
+    },
+    {
+      "id": "showreel-03",
+      "file": "assets/videos/showreel-03.mp4",
+      "title": "Commercial Brand Film Showreel",
+      "description": "High-energy commercial reel highlighting corporate identity and visual storytelling."
+    },
+    {
+      "id": "showreel-04",
+      "file": "assets/videos/showreel-04.mp4",
+      "title": "Animated Product Reveal Promo",
+      "description": "Clean 3D typography and kinetic product showcase for digital campaign launch."
+    },
+    {
+      "id": "showreel-05",
+      "file": "assets/videos/showreel-05.mp4",
+      "title": "Event & Special Feature Reel",
+      "description": "Polished post-production edit with sound design for corporate summits and launches."
+    },
+    {
+      "id": "showreel-06",
+      "file": "assets/videos/showreel-06.mp4",
+      "title": "Agency Creative Capabilities Reel",
+      "description": "Fast-paced compilation of video production, VFX, and promotional video work."
+    }
+  ]
+}
