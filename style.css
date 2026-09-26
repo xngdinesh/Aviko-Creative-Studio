@@ -790,11 +790,52 @@ h1, h2, h3, h4, h5, h6 {
   flex-shrink: 0;
 }
 
+/* Featured Capstone Service Card */
+.service-category-card.featured-card {
+  grid-column: 1 / -1;
+  display: grid;
+  grid-template-columns: 1fr 1.35fr;
+  gap: 2.25rem;
+  align-items: center;
+  background: linear-gradient(135deg, rgba(201, 162, 39, 0.07) 0%, rgba(15, 18, 26, 0.95) 100%);
+  border-color: var(--gold-border);
+  box-shadow: 0 14px 35px -10px rgba(0, 0, 0, 0.8), 0 0 24px -6px var(--gold-glow);
+}
+
+.service-category-card.featured-card .category-header {
+  margin-bottom: 0;
+}
+
+.service-category-card.featured-card .subservice-list {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.75rem 1.75rem;
+  margin-top: 0;
+  padding-top: 0;
+  border-top: none;
+  border-left: 1px solid var(--border-medium);
+  padding-left: 2.25rem;
+}
+
+@media (max-width: 900px) {
+  .service-category-card.featured-card {
+    grid-template-columns: 1fr;
+    gap: 1.25rem;
+  }
+  .service-category-card.featured-card .subservice-list {
+    border-left: none;
+    border-top: 1px solid var(--border-subtle);
+    padding-left: 0;
+    padding-top: 1rem;
+    grid-template-columns: 1fr;
+  }
+}
+
 /* ==========================================================================
-   Portfolio / Showcase Section (Filterable Masonry Grid)
+   Portfolio / Showcase Section (Dynamic Frame Masonry Grid)
    ========================================================================== */
 .portfolio-section {
-  padding: 4.75rem 0;
+  padding: 4.5rem 0;
   position: relative;
 }
 
@@ -806,7 +847,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .filter-pill {
-  padding: 0.45rem 1rem;
+  padding: 0.45rem 1.1rem;
   border-radius: var(--radius-full);
   font-family: var(--font-display);
   font-size: 0.8125rem;
@@ -829,63 +870,87 @@ h1, h2, h3, h4, h5, h6 {
   box-shadow: 0 3px 12px rgba(201, 162, 39, 0.25);
 }
 
+/* Dynamic Multi-Column Masonry — Eliminates All Row-Stretch Blank Holes */
 .portfolio-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-  gap: 1.25rem;
+  column-count: 3;
+  column-gap: 1.25rem;
+  display: block;
+  width: 100%;
+}
+
+@media (max-width: 1024px) {
+  .portfolio-grid {
+    column-count: 2;
+    column-gap: 1rem;
+  }
+}
+
+@media (max-width: 640px) {
+  .portfolio-grid {
+    column-count: 2;
+    column-gap: 0.65rem;
+  }
 }
 
 .portfolio-card {
+  break-inside: avoid;
+  page-break-inside: avoid;
+  margin-bottom: 1.25rem;
+  display: block;
+  width: 100%;
   background: var(--bg-surface);
   border-radius: var(--radius-sm);
   border: 1px solid var(--border-subtle);
   overflow: hidden;
   position: relative;
   cursor: pointer;
-  transition: all var(--transition-smooth);
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.5);
+  transition: transform var(--transition-smooth), border-color var(--transition-smooth), box-shadow var(--transition-smooth);
+}
+
+@media (max-width: 640px) {
+  .portfolio-card {
+    margin-bottom: 0.65rem;
+    border-radius: var(--radius-xs);
+  }
 }
 
 .portfolio-card:hover {
   transform: translateY(-4px);
   border-color: var(--gold-border);
-  box-shadow: 0 14px 30px -8px rgba(0, 0, 0, 0.8), 0 0 16px -4px var(--gold-glow);
+  box-shadow: 0 16px 36px -8px rgba(0, 0, 0, 0.85), 0 0 20px -4px var(--gold-glow);
 }
 
-.portfolio-thumb-wrapper {
+/* Dynamic Image Frame — Adapts 100% to Image Natural Dimensions, Zero Void */
+.portfolio-thumb-wrapper,
+.portfolio-thumb-wrapper.square,
+.portfolio-thumb-wrapper.tall,
+.portfolio-thumb-wrapper.wide {
   position: relative;
   width: 100%;
-  aspect-ratio: 4 / 3;
+  height: auto;
+  aspect-ratio: auto !important;
   overflow: hidden;
-  background: #000;
-}
-
-.portfolio-thumb-wrapper.square {
-  aspect-ratio: 1 / 1;
-}
-
-.portfolio-thumb-wrapper.tall {
-  aspect-ratio: 3 / 4;
-}
-
-.portfolio-thumb-wrapper.wide {
-  aspect-ratio: 16 / 9;
+  background: transparent;
+  display: block;
 }
 
 .portfolio-thumb-wrapper img {
   width: 100%;
-  height: 100%;
+  height: auto;
+  display: block;
   object-fit: cover;
-  transition: transform 0.4s ease;
+  transition: transform 0.45s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .portfolio-card:hover .portfolio-thumb-wrapper img {
-  transform: scale(1.05);
+  transform: scale(1.035);
 }
 
 .portfolio-overlay {
   position: absolute;
   inset: 0;
-  background: linear-gradient(0deg, rgba(9, 10, 15, 0.92) 0%, rgba(9, 10, 15, 0.35) 50%, transparent 100%);
+  background: linear-gradient(0deg, rgba(9, 10, 15, 0.95) 0%, rgba(9, 10, 15, 0.45) 55%, transparent 100%);
   display: flex;
   flex-direction: column;
   justify-content: flex-end;
@@ -929,7 +994,7 @@ h1, h2, h3, h4, h5, h6 {
   align-items: center;
   justify-content: center;
   color: var(--gold-light);
-  transform: scale(0.8);
+  transform: scale(0.85);
   opacity: 0;
   transition: all var(--transition-smooth);
 }
@@ -942,6 +1007,30 @@ h1, h2, h3, h4, h5, h6 {
 .portfolio-card:hover .portfolio-zoom-icon {
   transform: scale(1);
   opacity: 1;
+}
+
+@media (max-width: 768px) {
+  .portfolio-overlay {
+    padding: 0.75rem 0.6rem;
+  }
+  .portfolio-title {
+    font-size: 0.75rem;
+    line-height: 1.2;
+  }
+  .portfolio-category-badge {
+    font-size: 0.5625rem;
+    letter-spacing: 0.05em;
+  }
+  .portfolio-zoom-icon {
+    width: 26px;
+    height: 26px;
+    top: 0.45rem;
+    right: 0.45rem;
+  }
+  .portfolio-zoom-icon svg {
+    width: 12px;
+    height: 12px;
+  }
 }
 
 /* ==========================================================================
@@ -1699,12 +1788,16 @@ h1, h2, h3, h4, h5, h6 {
 
 @media (max-width: 768px) {
   html {
-    font-size: 14px;
+    font-size: 15px;
+  }
+
+  .site-header {
+    height: 4.35rem;
   }
 
   .nav-menu {
     position: fixed;
-    top: 3.85rem;
+    top: 4.35rem;
     left: 0;
     width: 100%;
     background: rgba(9, 10, 15, 0.98);
@@ -1727,9 +1820,53 @@ h1, h2, h3, h4, h5, h6 {
     display: flex;
   }
 
+  .hero-section {
+    padding: 2.75rem 0 3.25rem;
+    min-height: auto;
+  }
+
+  .hero-grid {
+    gap: 2rem;
+  }
+
+  .hero-actions {
+    flex-direction: column;
+    width: 100%;
+    gap: 0.75rem;
+    margin-bottom: 2rem;
+  }
+
+  .hero-actions .btn {
+    width: 100%;
+    justify-content: center;
+  }
+
   .hero-stats {
-    grid-template-columns: 1fr;
-    gap: 1rem;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0.75rem;
+    padding-top: 1.25rem;
+    text-align: center;
+  }
+
+  .stat-number {
+    font-size: 1.35rem;
+  }
+
+  .stat-label {
+    font-size: 0.6875rem;
+    line-height: 1.3;
+  }
+
+  .services-section,
+  .portfolio-section,
+  .showreel-section,
+  .about-section,
+  .contact-section {
+    padding: 3rem 0;
+  }
+
+  .section-header {
+    margin-bottom: 2rem;
   }
 
   .services-tabs-nav {
@@ -1744,7 +1881,6 @@ h1, h2, h3, h4, h5, h6 {
   }
 
   .service-categories-grid,
-  .portfolio-grid,
   .video-grid {
     grid-template-columns: 1fr;
   }
