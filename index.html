@@ -42,11 +42,11 @@
     "url": "https://aviko-creative-studio.vercel.app/",
     "telephone": "+1-555-019-2834",
     "priceRange": "$$",
-    "description": "Premier graphic design and video production agency providing strategic visual identity systems, packaging architecture, advertising collateral, and commercial video production.",
+    "description": "Premier creative agency providing strategic visual identity systems, bespoke web application development, packaging architecture, advertising collateral, and commercial video production.",
     "slogan": "Ideas · Design · Development",
     "address": {
       "@type": "PostalAddress",
-      "addressLocality": "Location — to be confirmed"
+      "addressLocality": "[Studio Location / Address — To be announced]"
     },
     "makesOffer": [
       {
@@ -54,6 +54,13 @@
         "itemOffered": {
           "@type": "Service",
           "name": "Graphic Design Services"
+        }
+      },
+      {
+        "@type": "Offer",
+        "itemOffered": {
+          "@type": "Service",
+          "name": "Web Development Services"
         }
       },
       {
@@ -1454,6 +1461,16 @@
 
             <div class="info-card">
               <div class="info-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+              </div>
+              <div>
+                <div class="info-title">Studio Headquarters</div>
+                <div class="info-value" style="color: var(--text-muted); font-size: 0.875rem;">[Studio Location / Address — To be announced]</div>
+              </div>
+            </div>
+
+            <div class="info-card">
+              <div class="info-icon">
                 <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 14 14"/></svg>
               </div>
               <div>
@@ -1509,9 +1526,15 @@
               </div>
 
               <div class="form-group">
+                <label for="userLocation" class="form-label">Client / Organization Location</label>
+                <input type="text" id="userLocation" name="location" class="form-input" placeholder="[Enter City, Country or Timezone]">
+              </div>
+
+              <div class="form-group">
                 <label for="userService" class="form-label">Primary Engagement Scope</label>
                 <select id="userService" name="service" class="form-select">
                   <option value="Branding & Identity System">Branding & Identity System</option>
+                  <option value="Web Development (Custom Web Apps, Headless E-Commerce & SaaS)">Web Development (Custom Web Apps, Headless E-Commerce & SaaS)</option>
                   <option value="Packaging & Product Design">Packaging & Product Design</option>
                   <option value="Commercial Advertising & Marketing Collateral">Commercial Advertising & Marketing Collateral</option>
                   <option value="Social Media Performance Creative">Social Media Performance Creative</option>

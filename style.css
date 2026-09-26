@@ -777,9 +777,24 @@ h1, h2, h3, h4, h5, h6 {
 .subservice-item {
   display: flex;
   align-items: center;
-  gap: 0.625rem;
   font-size: 0.8125rem;
+}
+
+.subservice-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.625rem;
   color: var(--text-main);
+  text-decoration: none;
+  width: 100%;
+  padding: 0.2rem 0;
+  border-radius: var(--radius-xs);
+  transition: all var(--transition-fast);
+}
+
+.subservice-link:hover {
+  color: var(--gold-light);
+  transform: translateX(4px);
 }
 
 .subservice-bullet {
@@ -788,6 +803,30 @@ h1, h2, h3, h4, h5, h6 {
   border-radius: 50%;
   background: var(--gold-primary);
   flex-shrink: 0;
+  transition: all var(--transition-fast);
+}
+
+.subservice-link:hover .subservice-bullet {
+  background: var(--gold-light);
+  box-shadow: 0 0 8px rgba(201, 162, 39, 0.7);
+  transform: scale(1.3);
+}
+
+.subservice-text {
+  flex-grow: 1;
+}
+
+.subservice-arrow {
+  opacity: 0;
+  transform: translateX(-4px);
+  color: var(--gold-light);
+  flex-shrink: 0;
+  transition: all var(--transition-fast);
+}
+
+.subservice-link:hover .subservice-arrow {
+  opacity: 1;
+  transform: translateX(0);
 }
 
 /* Featured Capstone Service Card */
@@ -876,6 +915,48 @@ h1, h2, h3, h4, h5, h6 {
   column-gap: 1.25rem;
   display: block;
   width: 100%;
+}
+
+.portfolio-empty-state {
+  column-span: all;
+  background: var(--bg-surface);
+  border: 1px dashed var(--gold-border);
+  border-radius: var(--radius-md);
+  padding: 3.5rem 2rem;
+  text-align: center;
+  margin: 1.5rem 0;
+  display: none;
+}
+
+.portfolio-empty-state.active {
+  display: block;
+}
+
+.portfolio-empty-icon {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background: rgba(201, 162, 39, 0.1);
+  color: var(--gold-light);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 1.25rem;
+}
+
+.portfolio-empty-title {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin-bottom: 0.5rem;
+}
+
+.portfolio-empty-desc {
+  font-size: 0.9375rem;
+  color: var(--text-muted);
+  max-width: 520px;
+  margin: 0 auto 1.5rem;
+  line-height: 1.6;
 }
 
 @media (max-width: 1024px) {

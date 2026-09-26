@@ -281,28 +281,44 @@
           </div>
         </div>
 
-        <!-- Filter Pills -->
-        <div class="portfolio-filter-bar fade-up">
-          <button class="filter-pill active" data-filter="all">All Disciplines</button>
-          <button class="filter-pill" data-filter="branding">Branding & Identity</button>
-          <button class="filter-pill" data-filter="packaging">Packaging & Product</button>
-          <button class="filter-pill" data-filter="marketing">Marketing & Ads</button>
-          <button class="filter-pill" data-filter="social">Social Media</button>
-          <button class="filter-pill" data-filter="print">Print & Stationery</button>
-          <button class="filter-pill" data-filter="uiux">UI/UX & Web</button>
+        <!-- Filter Pills (Granular Sub-Service List) -->
+        <div class="portfolio-filter-bar fade-up" aria-label="Portfolio Filters">
+          <button class="filter-pill active" data-filter="all">All Works</button>
+          <button class="filter-pill" data-filter="logo-design">Logo Architecture</button>
+          <button class="filter-pill" data-filter="brand-identity">Brand Identity</button>
+          <button class="filter-pill" data-filter="iconography">Vector Marks</button>
+          <button class="filter-pill" data-filter="pouch-packaging">Packaging Pouches</button>
+          <button class="filter-pill" data-filter="box-packaging">Packaging Boxes</button>
+          <button class="filter-pill" data-filter="packaging-labels">Packaging Labels</button>
+          <button class="filter-pill" data-filter="business-cards">Business Cards</button>
+          <button class="filter-pill" data-filter="dining-menus">Dining Menus</button>
+          <button class="filter-pill" data-filter="brochures">Brochures & Profiles</button>
+          <button class="filter-pill" data-filter="campaign-posters">Campaign Posters</button>
+          <button class="filter-pill" data-filter="display-banners">Display Banners</button>
+          <button class="filter-pill" data-filter="billboards">Outdoor Billboards</button>
+          <button class="filter-pill" data-filter="social-posts">Social Media Posts</button>
+          <button class="filter-pill" data-filter="social-carousel">Social Carousels</button>
+          <button class="filter-pill" data-filter="social-ads">Campaign Ads</button>
+          <button class="filter-pill" data-filter="profile-branding">Profile Branding</button>
+          <button class="filter-pill" data-filter="mobile-ui">Mobile UI/UX</button>
+          <button class="filter-pill" data-filter="dashboard-ui">Dashboard Portals</button>
+          <button class="filter-pill" data-filter="web-apps">Web Applications</button>
+          <button class="filter-pill" data-filter="ecommerce">Headless E-Commerce</button>
+          <button class="filter-pill" data-filter="saas-websites">SaaS Portals</button>
+          <button class="filter-pill" data-filter="interactive-web">Interactive WebGL</button>
         </div>
 
         <div class="portfolio-grid" id="portfolioGrid">
 
           <!-- Branding Items -->
-          <div class="portfolio-card fade-up" data-category="branding" data-title="Minimalist Executive Brand Mark" data-category-label="Branding & Identity">
+          <div class="portfolio-card fade-up" data-category="branding" data-subservice="logo-design" data-title="Minimalist Executive Brand Mark" data-category-label="Logo Design & Architecture">
             <div class="portfolio-thumb-wrapper wide">
               <picture>
                 <source srcset="assets/images/branding-01.webp" type="image/webp">
                 <img src="assets/images/branding-01.jpg" alt="Minimalist Executive Brand Mark" loading="lazy" decoding="async" width="600" height="380">
               </picture>
               <div class="portfolio-overlay">
-                <span class="portfolio-category-badge">Branding & Identity</span>
+                <span class="portfolio-category-badge">Logo Architecture</span>
                 <h4 class="portfolio-title">Minimalist Executive Brand Mark</h4>
               </div>
               <div class="portfolio-zoom-icon">
@@ -311,14 +327,14 @@
             </div>
           </div>
 
-          <div class="portfolio-card fade-up" data-category="branding" data-title="Luxury Home Decor Visual Identity" data-category-label="Branding & Identity">
+          <div class="portfolio-card fade-up" data-category="branding" data-subservice="brand-identity" data-title="Luxury Home Decor Visual Identity" data-category-label="Brand Identity">
             <div class="portfolio-thumb-wrapper wide">
               <picture>
                 <source srcset="assets/images/branding-02.webp" type="image/webp">
                 <img src="assets/images/branding-02.jpg" alt="Luxury Home Decor Visual Identity" loading="lazy" decoding="async" width="600" height="380">
               </picture>
               <div class="portfolio-overlay">
-                <span class="portfolio-category-badge">Branding & Identity</span>
+                <span class="portfolio-category-badge">Brand Identity</span>
                 <h4 class="portfolio-title">Luxury Home Decor Visual Identity</h4>
               </div>
               <div class="portfolio-zoom-icon">
@@ -327,14 +343,14 @@
             </div>
           </div>
 
-          <div class="portfolio-card fade-up" data-category="branding" data-title="Geometric Vector Iconography" data-category-label="Branding & Identity">
+          <div class="portfolio-card fade-up" data-category="branding" data-subservice="iconography" data-title="Geometric Vector Iconography" data-category-label="Vector Iconography">
             <div class="portfolio-thumb-wrapper square">
               <picture>
                 <source srcset="assets/images/branding-03.webp" type="image/webp">
                 <img src="assets/images/branding-03.jpg" alt="Geometric Vector Iconography" loading="lazy" decoding="async" width="600" height="600">
               </picture>
               <div class="portfolio-overlay">
-                <span class="portfolio-category-badge">Branding & Identity</span>
+                <span class="portfolio-category-badge">Vector Marks</span>
                 <h4 class="portfolio-title">Geometric Vector Iconography</h4>
               </div>
               <div class="portfolio-zoom-icon">
@@ -344,14 +360,14 @@
           </div>
 
           <!-- Packaging Items -->
-          <div class="portfolio-card fade-up" data-category="packaging" data-title="Artisan Food Pouch Packaging" data-category-label="Packaging & Product">
+          <div class="portfolio-card fade-up" data-category="packaging" data-subservice="pouch-packaging" data-title="Artisan Food Pouch Packaging" data-category-label="Packaging Pouches">
             <div class="portfolio-thumb-wrapper">
               <picture>
                 <source srcset="assets/images/packaging-01.webp" type="image/webp">
                 <img src="assets/images/packaging-01.jpg" alt="Artisan Food Pouch Packaging" loading="lazy" decoding="async" width="600" height="400">
               </picture>
               <div class="portfolio-overlay">
-                <span class="portfolio-category-badge">Packaging & Product</span>
+                <span class="portfolio-category-badge">Pouch Packaging</span>
                 <h4 class="portfolio-title">Artisan Food Pouch Packaging</h4>
               </div>
               <div class="portfolio-zoom-icon">
@@ -360,14 +376,14 @@
             </div>
           </div>
 
-          <div class="portfolio-card fade-up" data-category="packaging" data-title="Custom Retail Box Packaging" data-category-label="Packaging & Product">
+          <div class="portfolio-card fade-up" data-category="packaging" data-subservice="box-packaging" data-title="Custom Retail Box Packaging" data-category-label="Packaging Boxes">
             <div class="portfolio-thumb-wrapper">
               <picture>
                 <source srcset="assets/images/packaging-02.webp" type="image/webp">
                 <img src="assets/images/packaging-02.jpg" alt="Custom Retail Box Packaging" loading="lazy" decoding="async" width="600" height="400">
               </picture>
               <div class="portfolio-overlay">
-                <span class="portfolio-category-badge">Packaging & Product</span>
+                <span class="portfolio-category-badge">Box Packaging</span>
                 <h4 class="portfolio-title">Custom Retail Box Packaging</h4>
               </div>
               <div class="portfolio-zoom-icon">
@@ -376,14 +392,14 @@
             </div>
           </div>
 
-          <div class="portfolio-card fade-up" data-category="packaging" data-title="Matte Stand-Up Product Pouch" data-category-label="Packaging & Product">
+          <div class="portfolio-card fade-up" data-category="packaging" data-subservice="pouch-packaging" data-title="Matte Stand-Up Product Pouch" data-category-label="Packaging Pouches">
             <div class="portfolio-thumb-wrapper">
               <picture>
                 <source srcset="assets/images/packaging-03.webp" type="image/webp">
                 <img src="assets/images/packaging-03.jpg" alt="Matte Stand-Up Product Pouch" loading="lazy" decoding="async" width="600" height="400">
               </picture>
               <div class="portfolio-overlay">
-                <span class="portfolio-category-badge">Packaging & Product</span>
+                <span class="portfolio-category-badge">Pouch Packaging</span>
                 <h4 class="portfolio-title">Matte Stand-Up Product Pouch</h4>
               </div>
               <div class="portfolio-zoom-icon">
@@ -393,14 +409,14 @@
           </div>
 
           <!-- Print Items -->
-          <div class="portfolio-card fade-up" data-category="print" data-title="Premium Foil Accent Business Cards" data-category-label="Print & Stationery">
+          <div class="portfolio-card fade-up" data-category="print" data-subservice="business-cards" data-title="Premium Foil Accent Business Cards" data-category-label="Business Card Design">
             <div class="portfolio-thumb-wrapper wide">
               <picture>
                 <source srcset="assets/images/print-01.webp" type="image/webp">
                 <img src="assets/images/print-01.jpg" alt="Premium Foil Accent Business Cards" loading="lazy" decoding="async" width="600" height="380">
               </picture>
               <div class="portfolio-overlay">
-                <span class="portfolio-category-badge">Print Design</span>
+                <span class="portfolio-category-badge">Business Cards</span>
                 <h4 class="portfolio-title">Premium Foil Accent Cards</h4>
               </div>
               <div class="portfolio-zoom-icon">
@@ -409,14 +425,14 @@
             </div>
           </div>
 
-          <div class="portfolio-card fade-up" data-category="print" data-title="Luxury Stationery & Card Mockup" data-category-label="Print & Stationery">
+          <div class="portfolio-card fade-up" data-category="print" data-subservice="business-cards" data-title="Luxury Stationery & Card Mockup" data-category-label="Business Card Design">
             <div class="portfolio-thumb-wrapper">
               <picture>
                 <source srcset="assets/images/print-02.webp" type="image/webp">
                 <img src="assets/images/print-02.jpg" alt="Luxury Stationery & Card Mockup" loading="lazy" decoding="async" width="600" height="400">
               </picture>
               <div class="portfolio-overlay">
-                <span class="portfolio-category-badge">Print Design</span>
+                <span class="portfolio-category-badge">Stationery & Cards</span>
                 <h4 class="portfolio-title">Luxury Stationery & Cards</h4>
               </div>
               <div class="portfolio-zoom-icon">
@@ -425,14 +441,14 @@
             </div>
           </div>
 
-          <div class="portfolio-card fade-up" data-category="print" data-title="Modern Restaurant Dine-In Menu" data-category-label="Print & Stationery">
+          <div class="portfolio-card fade-up" data-category="print" data-subservice="dining-menus" data-title="Modern Restaurant Dine-In Menu" data-category-label="Dining Menus">
             <div class="portfolio-thumb-wrapper tall">
               <picture>
                 <source srcset="assets/images/print-03.webp" type="image/webp">
                 <img src="assets/images/print-03.jpg" alt="Modern Restaurant Dine-In Menu" loading="lazy" decoding="async" width="600" height="850">
               </picture>
               <div class="portfolio-overlay">
-                <span class="portfolio-category-badge">Print Design</span>
+                <span class="portfolio-category-badge">Dining Menus</span>
                 <h4 class="portfolio-title">Modern Restaurant Dine-In Menu</h4>
               </div>
               <div class="portfolio-zoom-icon">
@@ -441,14 +457,14 @@
             </div>
           </div>
 
-          <div class="portfolio-card fade-up" data-category="print" data-title="Corporate Tri-Fold Presentation Brochure" data-category-label="Print & Stationery">
+          <div class="portfolio-card fade-up" data-category="print" data-subservice="brochures" data-title="Corporate Tri-Fold Presentation Brochure" data-category-label="Brochures & Profiles">
             <div class="portfolio-thumb-wrapper tall">
               <picture>
                 <source srcset="assets/images/print-04.webp" type="image/webp">
                 <img src="assets/images/print-04.jpg" alt="Corporate Tri-Fold Presentation Brochure" loading="lazy" decoding="async" width="600" height="850">
               </picture>
               <div class="portfolio-overlay">
-                <span class="portfolio-category-badge">Print Design</span>
+                <span class="portfolio-category-badge">Brochures & Profiles</span>
                 <h4 class="portfolio-title">Corporate Tri-Fold Brochure</h4>
               </div>
               <div class="portfolio-zoom-icon">
@@ -458,14 +474,14 @@
           </div>
 
           <!-- Marketing & Ads -->
-          <div class="portfolio-card fade-up" data-category="marketing" data-title="Editorial Campaign Advertising Poster" data-category-label="Marketing & Advertising">
+          <div class="portfolio-card fade-up" data-category="marketing" data-subservice="campaign-posters" data-title="Editorial Campaign Advertising Poster" data-category-label="Campaign Posters">
             <div class="portfolio-thumb-wrapper tall">
               <picture>
                 <source srcset="assets/images/marketing-01.webp" type="image/webp">
                 <img src="assets/images/marketing-01.jpg" alt="Editorial Campaign Advertising Poster" loading="lazy" decoding="async" width="600" height="850">
               </picture>
               <div class="portfolio-overlay">
-                <span class="portfolio-category-badge">Marketing & Ads</span>
+                <span class="portfolio-category-badge">Campaign Posters</span>
                 <h4 class="portfolio-title">Editorial Campaign Poster</h4>
               </div>
               <div class="portfolio-zoom-icon">
@@ -474,14 +490,14 @@
             </div>
           </div>
 
-          <div class="portfolio-card fade-up" data-category="marketing" data-title="Creative Visual Type Poster Series" data-category-label="Marketing & Advertising">
+          <div class="portfolio-card fade-up" data-category="marketing" data-subservice="campaign-posters" data-title="Creative Visual Type Poster Series" data-category-label="Campaign Posters">
             <div class="portfolio-thumb-wrapper tall">
               <picture>
                 <source srcset="assets/images/marketing-02.webp" type="image/webp">
                 <img src="assets/images/marketing-02.jpg" alt="Creative Visual Type Poster Series" loading="lazy" decoding="async" width="600" height="850">
               </picture>
               <div class="portfolio-overlay">
-                <span class="portfolio-category-badge">Marketing & Ads</span>
+                <span class="portfolio-category-badge">Campaign Posters</span>
                 <h4 class="portfolio-title">Creative Typography Poster</h4>
               </div>
               <div class="portfolio-zoom-icon">
@@ -490,14 +506,14 @@
             </div>
           </div>
 
-          <div class="portfolio-card fade-up" data-category="marketing" data-title="Commercial Brand Advertising Creative" data-category-label="Marketing & Advertising">
+          <div class="portfolio-card fade-up" data-category="marketing" data-subservice="display-banners" data-title="Commercial Brand Advertising Creative" data-category-label="Display Banners">
             <div class="portfolio-thumb-wrapper tall">
               <picture>
                 <source srcset="assets/images/marketing-03.webp" type="image/webp">
                 <img src="assets/images/marketing-03.jpg" alt="Commercial Brand Advertising Creative" loading="lazy" decoding="async" width="600" height="850">
               </picture>
               <div class="portfolio-overlay">
-                <span class="portfolio-category-badge">Marketing & Ads</span>
+                <span class="portfolio-category-badge">Display Banners</span>
                 <h4 class="portfolio-title">Commercial Brand Creative</h4>
               </div>
               <div class="portfolio-zoom-icon">
@@ -506,14 +522,14 @@
             </div>
           </div>
 
-          <div class="portfolio-card fade-up" data-category="marketing" data-title="Corporate Showcase Promotional Flyer" data-category-label="Marketing & Advertising">
+          <div class="portfolio-card fade-up" data-category="marketing" data-subservice="display-banners" data-title="Corporate Showcase Promotional Flyer" data-category-label="Display Banners">
             <div class="portfolio-thumb-wrapper tall">
               <picture>
                 <source srcset="assets/images/marketing-04.webp" type="image/webp">
                 <img src="assets/images/marketing-04.jpg" alt="Corporate Showcase Promotional Flyer" loading="lazy" decoding="async" width="600" height="850">
               </picture>
               <div class="portfolio-overlay">
-                <span class="portfolio-category-badge">Marketing & Ads</span>
+                <span class="portfolio-category-badge">Display Banners</span>
                 <h4 class="portfolio-title">Corporate Promotional Flyer</h4>
               </div>
               <div class="portfolio-zoom-icon">
@@ -522,14 +538,14 @@
             </div>
           </div>
 
-          <div class="portfolio-card fade-up" data-category="marketing" data-title="Digital Product Launch Banner" data-category-label="Marketing & Advertising">
+          <div class="portfolio-card fade-up" data-category="marketing" data-subservice="display-banners" data-title="Digital Product Launch Banner" data-category-label="Display Banners">
             <div class="portfolio-thumb-wrapper tall">
               <picture>
                 <source srcset="assets/images/marketing-05.webp" type="image/webp">
                 <img src="assets/images/marketing-05.jpg" alt="Digital Product Launch Banner" loading="lazy" decoding="async" width="600" height="850">
               </picture>
               <div class="portfolio-overlay">
-                <span class="portfolio-category-badge">Marketing & Ads</span>
+                <span class="portfolio-category-badge">Display Banners</span>
                 <h4 class="portfolio-title">Product Launch Display Banner</h4>
               </div>
               <div class="portfolio-zoom-icon">
@@ -538,14 +554,14 @@
             </div>
           </div>
 
-          <div class="portfolio-card fade-up" data-category="marketing" data-title="Special Event Headline Poster" data-category-label="Marketing & Advertising">
+          <div class="portfolio-card fade-up" data-category="marketing" data-subservice="campaign-posters" data-title="Special Event Headline Poster" data-category-label="Campaign Posters">
             <div class="portfolio-thumb-wrapper tall">
               <picture>
                 <source srcset="assets/images/marketing-06.webp" type="image/webp">
                 <img src="assets/images/marketing-06.jpg" alt="Special Event Headline Poster" loading="lazy" decoding="async" width="600" height="850">
               </picture>
               <div class="portfolio-overlay">
-                <span class="portfolio-category-badge">Marketing & Ads</span>
+                <span class="portfolio-category-badge">Campaign Posters</span>
                 <h4 class="portfolio-title">Special Event Headline Poster</h4>
               </div>
               <div class="portfolio-zoom-icon">
@@ -554,14 +570,14 @@
             </div>
           </div>
 
-          <div class="portfolio-card fade-up" data-category="marketing" data-title="Widescreen Promotional Banner" data-category-label="Marketing & Advertising">
+          <div class="portfolio-card fade-up" data-category="marketing" data-subservice="display-banners" data-title="Widescreen Promotional Banner" data-category-label="Display Banners">
             <div class="portfolio-thumb-wrapper wide">
               <picture>
                 <source srcset="assets/images/marketing-07.webp" type="image/webp">
                 <img src="assets/images/marketing-07.jpg" alt="Widescreen Promotional Banner" loading="lazy" decoding="async" width="600" height="300">
               </picture>
               <div class="portfolio-overlay">
-                <span class="portfolio-category-badge">Marketing & Ads</span>
+                <span class="portfolio-category-badge">Display Banners</span>
                 <h4 class="portfolio-title">Widescreen Promo Banner</h4>
               </div>
               <div class="portfolio-zoom-icon">
@@ -570,14 +586,14 @@
             </div>
           </div>
 
-          <div class="portfolio-card fade-up" data-category="marketing" data-title="Outdoor Billboard & Signage Display" data-category-label="Marketing & Advertising">
+          <div class="portfolio-card fade-up" data-category="marketing" data-subservice="billboards" data-title="Outdoor Billboard & Signage Display" data-category-label="Outdoor Billboards">
             <div class="portfolio-thumb-wrapper wide">
               <picture>
                 <source srcset="assets/images/marketing-08.webp" type="image/webp">
                 <img src="assets/images/marketing-08.jpg" alt="Outdoor Billboard & Signage Display" loading="lazy" decoding="async" width="600" height="350">
               </picture>
               <div class="portfolio-overlay">
-                <span class="portfolio-category-badge">Marketing & Ads</span>
+                <span class="portfolio-category-badge">Outdoor Billboards</span>
                 <h4 class="portfolio-title">Outdoor Billboard Creative</h4>
               </div>
               <div class="portfolio-zoom-icon">
@@ -587,14 +603,14 @@
           </div>
 
           <!-- Social Media Grid Items -->
-          <div class="portfolio-card fade-up" data-category="social" data-title="High-Engagement Instagram Post" data-category-label="Social Media Design">
+          <div class="portfolio-card fade-up" data-category="social" data-subservice="social-posts" data-title="High-Engagement Instagram Post" data-category-label="Social Media Posts">
             <div class="portfolio-thumb-wrapper square">
               <picture>
                 <source srcset="assets/images/social-01.webp" type="image/webp">
                 <img src="assets/images/social-01.jpg" alt="High-Engagement Instagram Post" loading="lazy" decoding="async" width="600" height="600">
               </picture>
               <div class="portfolio-overlay">
-                <span class="portfolio-category-badge">Social Media</span>
+                <span class="portfolio-category-badge">Social Posts</span>
                 <h4 class="portfolio-title">High-Engagement Instagram Post</h4>
               </div>
               <div class="portfolio-zoom-icon">
@@ -603,14 +619,14 @@
             </div>
           </div>
 
-          <div class="portfolio-card fade-up" data-category="social" data-title="Dynamic Feed Carousel Graphic" data-category-label="Social Media Design">
+          <div class="portfolio-card fade-up" data-category="social" data-subservice="social-carousel" data-title="Dynamic Feed Carousel Graphic" data-category-label="Social Carousels">
             <div class="portfolio-thumb-wrapper square">
               <picture>
                 <source srcset="assets/images/social-02.webp" type="image/webp">
                 <img src="assets/images/social-02.jpg" alt="Dynamic Feed Carousel Graphic" loading="lazy" decoding="async" width="600" height="600">
               </picture>
               <div class="portfolio-overlay">
-                <span class="portfolio-category-badge">Social Media</span>
+                <span class="portfolio-category-badge">Social Carousels</span>
                 <h4 class="portfolio-title">Dynamic Feed Carousel</h4>
               </div>
               <div class="portfolio-zoom-icon">
@@ -619,14 +635,14 @@
             </div>
           </div>
 
-          <div class="portfolio-card fade-up" data-category="social" data-title="Product Feature Social Square" data-category-label="Social Media Design">
+          <div class="portfolio-card fade-up" data-category="social" data-subservice="social-posts" data-title="Product Feature Social Square" data-category-label="Social Media Posts">
             <div class="portfolio-thumb-wrapper square">
               <picture>
                 <source srcset="assets/images/social-03.webp" type="image/webp">
                 <img src="assets/images/social-03.jpg" alt="Product Feature Social Square" loading="lazy" decoding="async" width="600" height="600">
               </picture>
               <div class="portfolio-overlay">
-                <span class="portfolio-category-badge">Social Media</span>
+                <span class="portfolio-category-badge">Social Posts</span>
                 <h4 class="portfolio-title">Product Feature Creative</h4>
               </div>
               <div class="portfolio-zoom-icon">
@@ -635,14 +651,14 @@
             </div>
           </div>
 
-          <div class="portfolio-card fade-up" data-category="social" data-title="Brand Story Highlight Creative" data-category-label="Social Media Design">
+          <div class="portfolio-card fade-up" data-category="social" data-subservice="profile-branding" data-title="Brand Story Highlight Creative" data-category-label="Profile Branding">
             <div class="portfolio-thumb-wrapper square">
               <picture>
                 <source srcset="assets/images/social-04.webp" type="image/webp">
                 <img src="assets/images/social-04.jpg" alt="Brand Story Highlight Creative" loading="lazy" decoding="async" width="600" height="600">
               </picture>
               <div class="portfolio-overlay">
-                <span class="portfolio-category-badge">Social Media</span>
+                <span class="portfolio-category-badge">Profile Branding</span>
                 <h4 class="portfolio-title">Brand Story Highlight</h4>
               </div>
               <div class="portfolio-zoom-icon">
@@ -651,14 +667,14 @@
             </div>
           </div>
 
-          <div class="portfolio-card fade-up" data-category="social" data-title="Flash Sale Promotional Graphic" data-category-label="Social Media Design">
+          <div class="portfolio-card fade-up" data-category="social" data-subservice="social-ads" data-title="Flash Sale Promotional Graphic" data-category-label="Campaign Ads">
             <div class="portfolio-thumb-wrapper square">
               <picture>
                 <source srcset="assets/images/social-05.webp" type="image/webp">
                 <img src="assets/images/social-05.jpg" alt="Flash Sale Promotional Graphic" loading="lazy" decoding="async" width="600" height="600">
               </picture>
               <div class="portfolio-overlay">
-                <span class="portfolio-category-badge">Social Media</span>
+                <span class="portfolio-category-badge">Campaign Ads</span>
                 <h4 class="portfolio-title">Flash Sale Promo Graphic</h4>
               </div>
               <div class="portfolio-zoom-icon">
@@ -667,14 +683,14 @@
             </div>
           </div>
 
-          <div class="portfolio-card fade-up" data-category="social" data-title="Creator Media Banner Post" data-category-label="Social Media Design">
+          <div class="portfolio-card fade-up" data-category="social" data-subservice="social-posts" data-title="Creator Media Banner Post" data-category-label="Social Media Posts">
             <div class="portfolio-thumb-wrapper square">
               <picture>
                 <source srcset="assets/images/social-06.webp" type="image/webp">
                 <img src="assets/images/social-06.jpg" alt="Creator Media Banner Post" loading="lazy" decoding="async" width="600" height="600">
               </picture>
               <div class="portfolio-overlay">
-                <span class="portfolio-category-badge">Social Media</span>
+                <span class="portfolio-category-badge">Social Posts</span>
                 <h4 class="portfolio-title">Creator Media Banner</h4>
               </div>
               <div class="portfolio-zoom-icon">
@@ -683,14 +699,14 @@
             </div>
           </div>
 
-          <div class="portfolio-card fade-up" data-category="social" data-title="Seasonal Campaign Announcement" data-category-label="Social Media Design">
+          <div class="portfolio-card fade-up" data-category="social" data-subservice="social-posts" data-title="Seasonal Campaign Announcement" data-category-label="Social Media Posts">
             <div class="portfolio-thumb-wrapper square">
               <picture>
                 <source srcset="assets/images/social-07.webp" type="image/webp">
                 <img src="assets/images/social-07.jpg" alt="Seasonal Campaign Announcement" loading="lazy" decoding="async" width="600" height="600">
               </picture>
               <div class="portfolio-overlay">
-                <span class="portfolio-category-badge">Social Media</span>
+                <span class="portfolio-category-badge">Social Posts</span>
                 <h4 class="portfolio-title">Seasonal Campaign Post</h4>
               </div>
               <div class="portfolio-zoom-icon">
@@ -699,14 +715,14 @@
             </div>
           </div>
 
-          <div class="portfolio-card fade-up" data-category="social" data-title="Retail Promotion Display Card" data-category-label="Social Media Design">
+          <div class="portfolio-card fade-up" data-category="social" data-subservice="social-posts" data-title="Retail Promotion Display Card" data-category-label="Social Media Posts">
             <div class="portfolio-thumb-wrapper square">
               <picture>
                 <source srcset="assets/images/social-08.webp" type="image/webp">
                 <img src="assets/images/social-08.jpg" alt="Retail Promotion Display Card" loading="lazy" decoding="async" width="600" height="600">
               </picture>
               <div class="portfolio-overlay">
-                <span class="portfolio-category-badge">Social Media</span>
+                <span class="portfolio-category-badge">Social Posts</span>
                 <h4 class="portfolio-title">Retail Promotion Creative</h4>
               </div>
               <div class="portfolio-zoom-icon">
@@ -715,14 +731,14 @@
             </div>
           </div>
 
-          <div class="portfolio-card fade-up" data-category="social" data-title="Modern Typographic Social Creative" data-category-label="Social Media Design">
+          <div class="portfolio-card fade-up" data-category="social" data-subservice="social-posts" data-title="Modern Typographic Social Creative" data-category-label="Social Media Posts">
             <div class="portfolio-thumb-wrapper square">
               <picture>
                 <source srcset="assets/images/social-09.webp" type="image/webp">
                 <img src="assets/images/social-09.jpg" alt="Modern Typographic Social Creative" loading="lazy" decoding="async" width="600" height="600">
               </picture>
               <div class="portfolio-overlay">
-                <span class="portfolio-category-badge">Social Media</span>
+                <span class="portfolio-category-badge">Social Posts</span>
                 <h4 class="portfolio-title">Typographic Social Creative</h4>
               </div>
               <div class="portfolio-zoom-icon">
@@ -731,14 +747,30 @@
             </div>
           </div>
 
-          <div class="portfolio-card fade-up" data-category="social" data-title="Luxury Dark-Mode Product Post" data-category-label="Social Media Design">
+          <div class="portfolio-card fade-up" data-category="packaging" data-subservice="packaging-labels" data-title="Botanical Organic Serum Packaging Labels" data-category-label="Packaging Labels">
+            <div class="portfolio-thumb-wrapper square">
+              <picture>
+                <source srcset="assets/images/packaging-03.webp" type="image/webp">
+                <img src="assets/images/packaging-03.jpg" alt="Botanical Organic Serum Packaging Labels" loading="lazy" decoding="async" width="600" height="600">
+              </picture>
+              <div class="portfolio-overlay">
+                <span class="portfolio-category-badge">Packaging Labels</span>
+                <h4 class="portfolio-title">Botanical Serum Label System</h4>
+              </div>
+              <div class="portfolio-zoom-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/><line x1="11" y1="8" x2="11" y2="14"/><line x1="8" y1="11" x2="14" y2="11"/></svg>
+              </div>
+            </div>
+          </div>
+
+          <div class="portfolio-card fade-up" data-category="social" data-subservice="social-posts" data-title="Luxury Dark-Mode Product Post" data-category-label="Social Media Posts">
             <div class="portfolio-thumb-wrapper square">
               <picture>
                 <source srcset="assets/images/social-10.webp" type="image/webp">
                 <img src="assets/images/social-10.jpg" alt="Luxury Dark-Mode Product Post" loading="lazy" decoding="async" width="600" height="600">
               </picture>
               <div class="portfolio-overlay">
-                <span class="portfolio-category-badge">Social Media</span>
+                <span class="portfolio-category-badge">Social Posts</span>
                 <h4 class="portfolio-title">Dark-Mode Product Showcase</h4>
               </div>
               <div class="portfolio-zoom-icon">
@@ -747,14 +779,14 @@
             </div>
           </div>
 
-          <div class="portfolio-card fade-up" data-category="social" data-title="Client Spotlight Social Graphic" data-category-label="Social Media Design">
+          <div class="portfolio-card fade-up" data-category="social" data-subservice="social-posts" data-title="Client Spotlight Social Graphic" data-category-label="Social Media Posts">
             <div class="portfolio-thumb-wrapper square">
               <picture>
                 <source srcset="assets/images/social-11.webp" type="image/webp">
                 <img src="assets/images/social-11.jpg" alt="Client Spotlight Social Graphic" loading="lazy" decoding="async" width="600" height="600">
               </picture>
               <div class="portfolio-overlay">
-                <span class="portfolio-category-badge">Social Media</span>
+                <span class="portfolio-category-badge">Social Posts</span>
                 <h4 class="portfolio-title">Client Spotlight Post</h4>
               </div>
               <div class="portfolio-zoom-icon">
@@ -763,14 +795,14 @@
             </div>
           </div>
 
-          <div class="portfolio-card fade-up" data-category="social" data-title="Festival Celebration Social Graphic" data-category-label="Social Media Design">
+          <div class="portfolio-card fade-up" data-category="social" data-subservice="social-posts" data-title="Festival Celebration Social Graphic" data-category-label="Social Media Posts">
             <div class="portfolio-thumb-wrapper square">
               <picture>
                 <source srcset="assets/images/social-12.webp" type="image/webp">
                 <img src="assets/images/social-12.jpg" alt="Festival Celebration Social Graphic" loading="lazy" decoding="async" width="600" height="600">
               </picture>
               <div class="portfolio-overlay">
-                <span class="portfolio-category-badge">Social Media</span>
+                <span class="portfolio-category-badge">Social Posts</span>
                 <h4 class="portfolio-title">Festival & Greeting Creative</h4>
               </div>
               <div class="portfolio-zoom-icon">
@@ -780,14 +812,14 @@
           </div>
 
           <!-- UI/UX Items -->
-          <div class="portfolio-card fade-up" data-category="uiux" data-title="Mobile App User Interface Concept" data-category-label="UI/UX & Web Design">
+          <div class="portfolio-card fade-up" data-category="uiux" data-subservice="mobile-ui" data-title="Mobile App User Interface Concept" data-category-label="Mobile UI/UX">
             <div class="portfolio-thumb-wrapper tall">
               <picture>
                 <source srcset="assets/images/uiux-01.webp" type="image/webp">
                 <img src="assets/images/uiux-01.jpg" alt="Mobile App User Interface Concept" loading="lazy" decoding="async" width="600" height="750">
               </picture>
               <div class="portfolio-overlay">
-                <span class="portfolio-category-badge">UI/UX & Web</span>
+                <span class="portfolio-category-badge">Mobile UI/UX</span>
                 <h4 class="portfolio-title">Mobile App Onboarding UI</h4>
               </div>
               <div class="portfolio-zoom-icon">
@@ -796,20 +828,101 @@
             </div>
           </div>
 
-          <div class="portfolio-card fade-up" data-category="uiux" data-title="Web Dashboard & Analytics UI" data-category-label="UI/UX & Web Design">
+          <div class="portfolio-card fade-up" data-category="uiux" data-subservice="dashboard-ui" data-title="Web Dashboard & Analytics UI" data-category-label="Dashboard Portals">
             <div class="portfolio-thumb-wrapper tall">
               <picture>
                 <source srcset="assets/images/uiux-02.webp" type="image/webp">
                 <img src="assets/images/uiux-02.jpg" alt="Web Dashboard & Analytics UI" loading="lazy" decoding="async" width="600" height="800">
               </picture>
               <div class="portfolio-overlay">
-                <span class="portfolio-category-badge">UI/UX & Web</span>
+                <span class="portfolio-category-badge">Dashboard Portals</span>
                 <h4 class="portfolio-title">Web Dashboard & Analytics UI</h4>
               </div>
               <div class="portfolio-zoom-icon">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/><line x1="11" y1="8" x2="11" y2="14"/><line x1="8" y1="11" x2="14" y2="11"/></svg>
               </div>
             </div>
+          </div>
+
+          <!-- Web Development Items (NEW TOP-LEVEL CATEGORY) -->
+          <div class="portfolio-card fade-up" data-category="webdev" data-subservice="web-apps" data-title="Next-Gen Fintech Trading Web Platform" data-category-label="Web Applications">
+            <div class="portfolio-thumb-wrapper wide">
+              <picture>
+                <source srcset="assets/images/webdev-01.webp" type="image/webp">
+                <img src="assets/images/webdev-01.jpg" alt="Next-Gen Fintech Trading Web Platform" loading="lazy" decoding="async" width="600" height="340">
+              </picture>
+              <div class="portfolio-overlay">
+                <span class="portfolio-category-badge">Web Application</span>
+                <h4 class="portfolio-title">Next-Gen Fintech Trading Platform</h4>
+              </div>
+              <div class="portfolio-zoom-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/><line x1="11" y1="8" x2="11" y2="14"/><line x1="8" y1="11" x2="14" y2="11"/></svg>
+              </div>
+            </div>
+          </div>
+
+          <div class="portfolio-card fade-up" data-category="webdev" data-subservice="ecommerce" data-title="Luxury Horology Headless E-Commerce" data-category-label="Headless E-Commerce">
+            <div class="portfolio-thumb-wrapper wide">
+              <picture>
+                <source srcset="assets/images/webdev-02.webp" type="image/webp">
+                <img src="assets/images/webdev-02.jpg" alt="Luxury Horology Headless E-Commerce" loading="lazy" decoding="async" width="600" height="340">
+              </picture>
+              <div class="portfolio-overlay">
+                <span class="portfolio-category-badge">Headless E-Commerce</span>
+                <h4 class="portfolio-title">Luxury Horology Storefront</h4>
+              </div>
+              <div class="portfolio-zoom-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/><line x1="11" y1="8" x2="11" y2="14"/><line x1="8" y1="11" x2="14" y2="11"/></svg>
+              </div>
+            </div>
+          </div>
+
+          <div class="portfolio-card fade-up" data-category="webdev" data-subservice="interactive-web" data-title="Award-Winning 3D WebGL Agency Platform" data-category-label="Interactive 3D WebGL">
+            <div class="portfolio-thumb-wrapper wide">
+              <picture>
+                <source srcset="assets/images/webdev-03.webp" type="image/webp">
+                <img src="assets/images/webdev-03.jpg" alt="Award-Winning 3D WebGL Agency Platform" loading="lazy" decoding="async" width="600" height="340">
+              </picture>
+              <div class="portfolio-overlay">
+                <span class="portfolio-category-badge">Interactive WebGL</span>
+                <h4 class="portfolio-title">3D WebGL Digital Experience</h4>
+              </div>
+              <div class="portfolio-zoom-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/><line x1="11" y1="8" x2="11" y2="14"/><line x1="8" y1="11" x2="14" y2="11"/></svg>
+              </div>
+            </div>
+          </div>
+
+          <!-- Web Development SaaS Portal (Placeholder Card) -->
+          <div class="portfolio-card fade-up" data-category="webdev" data-subservice="saas-websites" data-title="Cloud Intelligence B2B SaaS Portal" data-category-label="SaaS Portals">
+            <div class="portfolio-thumb-wrapper wide">
+              <picture>
+                <source srcset="assets/images/uiux-02.webp" type="image/webp">
+                <img src="assets/images/uiux-02.jpg" alt="Cloud Intelligence B2B SaaS Portal" loading="lazy" decoding="async" width="600" height="380">
+              </picture>
+              <div class="portfolio-overlay">
+                <span class="portfolio-category-badge">SaaS Portals</span>
+                <h4 class="portfolio-title">Cloud Intelligence SaaS Website</h4>
+              </div>
+              <div class="portfolio-zoom-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/><line x1="11" y1="8" x2="11" y2="14"/><line x1="8" y1="11" x2="14" y2="11"/></svg>
+              </div>
+            </div>
+          </div>
+
+          <!-- Granular Filter Empty State Placeholder -->
+          <div class="portfolio-empty-state" id="portfolioEmptyState">
+            <div class="portfolio-empty-icon">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+            </div>
+            <h3 class="portfolio-empty-title">Specialized Samples In Production</h3>
+            <p class="portfolio-empty-desc">
+              Custom case studies for this exact discipline are available during direct studio consultation or private deck review.
+            </p>
+            <a href="contact.html" class="btn btn-primary">
+              <span>Inquire About This Service</span>
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+            </a>
           </div>
 
         </div>

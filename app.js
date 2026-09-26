@@ -133,38 +133,94 @@ function initPortfolioAndLightbox() {
   const prevBtn = document.querySelector('.lightbox-prev');
   const nextBtn = document.querySelector('.lightbox-next');
 
-  let currentCategory = 'all';
+  let currentFilter = 'all';
   let activeCards = [...allCards];
   let currentLightboxIndex = 0;
 
   function updateActiveCards() {
     activeCards = allCards.filter(card => {
       const cat = card.getAttribute('data-category');
-      return currentCategory === 'all' || cat === currentCategory;
+      const sub = card.getAttribute('data-subservice');
+      return currentFilter === 'all' || sub === currentFilter || cat === currentFilter;
     });
+  }
+
+  function applyFilter(filterKey, pushState = false) {
+    currentFilter = filterKey || 'all';
+
+    // Update active state on filter pills
+    let matchedPill = null;
+    filterBtns.forEach(btn => {
+      const pillFilter = btn.getAttribute('data-filter');
+      if (pillFilter === currentFilter) {
+        btn.classList.add('active');
+        matchedPill = btn;
+      } else {
+        btn.classList.remove('active');
+      }
+    });
+
+    if (!matchedPill && filterBtns.length > 0) {
+      filterBtns.forEach(btn => {
+        if (btn.getAttribute('data-filter') === 'all') btn.classList.add('active');
+      });
+    }
+
+    let matchCount = 0;
+    allCards.forEach(card => {
+      const cat = card.getAttribute('data-category');
+      const sub = card.getAttribute('data-subservice');
+      const isMatch = (currentFilter === 'all') || (sub === currentFilter) || (cat === currentFilter);
+      if (isMatch) {
+        card.style.display = 'block';
+        card.classList.add('fade-up', 'visible');
+        matchCount++;
+      } else {
+        card.style.display = 'none';
+      }
+    });
+
+    updateActiveCards();
+
+    // Toggle empty state if present
+    const emptyState = document.getElementById('portfolioEmptyState');
+    if (emptyState) {
+      emptyState.style.display = matchCount === 0 ? 'block' : 'none';
+    }
+
+    if (pushState && window.history && window.history.replaceState) {
+      const url = new URL(window.location);
+      if (currentFilter === 'all') {
+        url.searchParams.delete('filter');
+      } else {
+        url.searchParams.set('filter', currentFilter);
+      }
+      window.history.replaceState({}, '', url);
+    }
   }
 
   // Filter click handler
   filterBtns.forEach(btn => {
     btn.addEventListener('click', () => {
-      filterBtns.forEach(b => b.classList.remove('active'));
-      btn.classList.add('active');
-
-      currentCategory = btn.getAttribute('data-filter');
-      
-      allCards.forEach(card => {
-        const cat = card.getAttribute('data-category');
-        if (currentCategory === 'all' || cat === currentCategory) {
-          card.style.display = 'block';
-          card.classList.add('fade-up', 'visible');
-        } else {
-          card.style.display = 'none';
-        }
-      });
-
-      updateActiveCards();
+      const selected = btn.getAttribute('data-filter');
+      applyFilter(selected, true);
     });
   });
+
+  // URL query parameter or hash detection for direct linking from Capabilities page
+  const urlParams = new URLSearchParams(window.location.search);
+  const filterFromParam = urlParams.get('filter') || (window.location.hash.startsWith('#filter-') ? window.location.hash.replace('#filter-', '') : null);
+  if (filterFromParam) {
+    applyFilter(filterFromParam, false);
+    setTimeout(() => {
+      const portfolioTarget = document.getElementById('portfolioGrid') || document.querySelector('.portfolio-filter-bar') || document.getElementById('portfolio');
+      if (portfolioTarget) {
+        portfolioTarget.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+    }, 200);
+  } else {
+    applyFilter('all', false);
+  }
 
   // Zoom and Pan State
   let currentZoom = 1;
