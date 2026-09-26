@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://avikocreative.com/sitemap.xml
+Sitemap: https://aviko-creative-studio.vercel.app/sitemap.xml

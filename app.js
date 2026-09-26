@@ -1,14 +1,13 @@
 /**
  * Aviko Media — Interactive Application Script
  * Features: Filterable Portfolio, Fullscreen Lightbox, Service Tabs,
- * Smooth Scroll, Mobile Drawer, Video Player Modal, Contact Form Handling
+ * Smooth Scroll, Mobile Drawer, Video Player Previews, Contact Form Handling
  */
 
 document.addEventListener('DOMContentLoaded', () => {
   initNavbar();
   initServiceTabs();
-  initPortfolio();
-  initLightbox();
+  initPortfolioAndLightbox();
   initVideoPlayer();
   initScrollAnimations();
   initContactForm();
@@ -23,14 +22,20 @@ function initNavbar() {
   const navMenu = document.querySelector('.nav-menu');
   const navLinks = document.querySelectorAll('.nav-link');
 
-  // Sticky header class toggle
+  // Sticky header transition
+  let ticking = false;
   window.addEventListener('scroll', () => {
-    if (window.scrollY > 20) {
-      header.classList.add('scrolled');
-    } else {
-      header.classList.remove('scrolled');
+    if (!ticking) {
+      window.requestAnimationFrame(() => {
+        if (window.scrollY > 15) {
+          header.classList.add('scrolled');
+        } else {
+          header.classList.remove('scrolled');
+        }
+        ticking = false;
+      });
+      ticking = true;
     }
-    highlightCurrentSection();
   }, { passive: true });
 
   // Mobile drawer toggle
@@ -52,24 +57,25 @@ function initNavbar() {
     });
   }
 
-  // Active section indicator on scroll
+  // Active section observer
   const sections = document.querySelectorAll('section[id]');
-  function highlightCurrentSection() {
-    const scrollPos = window.scrollY + 120;
-    sections.forEach(sec => {
-      const top = sec.offsetTop;
-      const height = sec.offsetHeight;
-      const id = sec.getAttribute('id');
-      const matchingLink = document.querySelector(`.nav-link[href="#${id}"]`);
-
-      if (matchingLink) {
-        if (scrollPos >= top && scrollPos < top + height) {
-          matchingLink.classList.add('active');
-        } else {
-          matchingLink.classList.remove('active');
+  if ('IntersectionObserver' in window) {
+    const navObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          const id = entry.target.getAttribute('id');
+          navLinks.forEach(link => {
+            if (link.getAttribute('href') === `#${id}`) {
+              link.classList.add('active');
+            } else {
+              link.classList.remove('active');
+            }
+          });
         }
-      }
-    });
+      });
+    }, { rootMargin: '-20% 0px -70% 0px' });
+
+    sections.forEach(sec => navObserver.observe(sec));
   }
 }
 
@@ -84,10 +90,14 @@ function initServiceTabs() {
     btn.addEventListener('click', () => {
       const targetId = btn.getAttribute('data-tab');
 
-      tabBtns.forEach(b => b.classList.remove('active'));
+      tabBtns.forEach(b => {
+        b.classList.remove('active');
+        b.setAttribute('aria-selected', 'false');
+      });
       tabPanes.forEach(p => p.classList.remove('active'));
 
       btn.classList.add('active');
+      btn.setAttribute('aria-selected', 'true');
       const targetPane = document.getElementById(targetId);
       if (targetPane) {
         targetPane.classList.add('active');
@@ -97,42 +107,12 @@ function initServiceTabs() {
 }
 
 /* --------------------------------------------------------------------------
-   Portfolio Filter Logic
+   Portfolio Filter Logic & Full Lightbox Modal
    -------------------------------------------------------------------------- */
-let activePortfolioCards = [];
-let currentLightboxIndex = 0;
-
-function initPortfolio() {
+function initPortfolioAndLightbox() {
   const filterBtns = document.querySelectorAll('.filter-pill');
-  const cards = document.querySelectorAll('.portfolio-card');
-  activePortfolioCards = Array.from(cards);
-
-  filterBtns.forEach(btn => {
-    btn.addEventListener('click', () => {
-      filterBtns.forEach(b => b.classList.remove('active'));
-      btn.classList.add('active');
-
-      const filterVal = btn.getAttribute('data-filter');
-      activePortfolioCards = [];
-
-      cards.forEach(card => {
-        const cardCat = card.getAttribute('data-category');
-        if (filterVal === 'all' || cardCat === filterVal) {
-          card.style.display = 'block';
-          card.classList.add('fade-up', 'visible');
-          activePortfolioCards.push(card);
-        } else {
-          card.style.display = 'none';
-        }
-      });
-    });
-  });
-}
-
-/* --------------------------------------------------------------------------
-   Lightbox Gallery Modal
-   -------------------------------------------------------------------------- */
-function initLightbox() {
+  const allCards = Array.from(document.querySelectorAll('.portfolio-card'));
+  
   const modal = document.getElementById('lightboxModal');
   const modalImg = document.getElementById('lightboxImg');
   const modalTitle = document.getElementById('lightboxTitle');
@@ -141,12 +121,44 @@ function initLightbox() {
   const prevBtn = document.querySelector('.lightbox-prev');
   const nextBtn = document.querySelector('.lightbox-next');
 
-  if (!modal || !modalImg) return;
+  let currentCategory = 'all';
+  let activeCards = [...allCards];
+  let currentLightboxIndex = 0;
 
+  function updateActiveCards() {
+    activeCards = allCards.filter(card => {
+      const cat = card.getAttribute('data-category');
+      return currentCategory === 'all' || cat === currentCategory;
+    });
+  }
+
+  // Filter click handler
+  filterBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      filterBtns.forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+
+      currentCategory = btn.getAttribute('data-filter');
+      
+      allCards.forEach(card => {
+        const cat = card.getAttribute('data-category');
+        if (currentCategory === 'all' || cat === currentCategory) {
+          card.style.display = 'block';
+          card.classList.add('fade-up', 'visible');
+        } else {
+          card.style.display = 'none';
+        }
+      });
+
+      updateActiveCards();
+    });
+  });
+
+  // Lightbox functions
   function openLightbox(index) {
-    if (!activePortfolioCards[index]) return;
+    if (activeCards.length === 0 || !activeCards[index]) return;
     currentLightboxIndex = index;
-    const card = activePortfolioCards[index];
+    const card = activeCards[index];
     const imgEl = card.querySelector('img');
     const title = card.getAttribute('data-title') || '';
     const cat = card.getAttribute('data-category-label') || '';
@@ -166,22 +178,21 @@ function initLightbox() {
   }
 
   function showNext() {
-    if (activePortfolioCards.length === 0) return;
-    currentLightboxIndex = (currentLightboxIndex + 1) % activePortfolioCards.length;
+    if (activeCards.length === 0) return;
+    currentLightboxIndex = (currentLightboxIndex + 1) % activeCards.length;
     openLightbox(currentLightboxIndex);
   }
 
   function showPrev() {
-    if (activePortfolioCards.length === 0) return;
-    currentLightboxIndex = (currentLightboxIndex - 1 + activePortfolioCards.length) % activePortfolioCards.length;
+    if (activeCards.length === 0) return;
+    currentLightboxIndex = (currentLightboxIndex - 1 + activeCards.length) % activeCards.length;
     openLightbox(currentLightboxIndex);
   }
 
-  // Bind clicks on all portfolio cards
-  const cards = document.querySelectorAll('.portfolio-card');
-  cards.forEach(card => {
+  // Card click triggers lightbox
+  allCards.forEach(card => {
     card.addEventListener('click', () => {
-      const idx = activePortfolioCards.indexOf(card);
+      const idx = activeCards.indexOf(card);
       if (idx !== -1) {
         openLightbox(idx);
       }
@@ -216,7 +227,7 @@ function initVideoPlayer() {
     const video = card.querySelector('video');
     if (!video) return;
 
-    // Optional hover preview playback muted
+    // Hover preview (muted)
     card.addEventListener('mouseenter', () => {
       if (video.paused && !card.classList.contains('playing-manual')) {
         video.muted = true;
@@ -263,15 +274,15 @@ function initScrollAnimations() {
       }
     });
   }, {
-    threshold: 0.12,
-    rootMargin: '0px 0px -40px 0px'
+    threshold: 0.1,
+    rootMargin: '0px 0px -30px 0px'
   });
 
   animatedElements.forEach(el => observer.observe(el));
 }
 
 /* --------------------------------------------------------------------------
-   Contact Form Validation & Feedback Toast
+   Contact Form Validation, Security & Feedback Toast
    -------------------------------------------------------------------------- */
 function initContactForm() {
   const form = document.getElementById('contactForm');
@@ -282,28 +293,43 @@ function initContactForm() {
   form.addEventListener('submit', (e) => {
     e.preventDefault();
 
+    // Sanitize user inputs
     const name = form.querySelector('[name="name"]').value.trim();
     const email = form.querySelector('[name="email"]').value.trim();
     const service = form.querySelector('[name="service"]').value;
     const message = form.querySelector('[name="message"]').value.trim();
+    const consent = form.querySelector('[name="consent"]');
 
     if (!name || !email || !message) {
-      showToast('Please fill out all required fields.');
+      showToast('Please complete all required fields.');
       return;
     }
 
-    // Compose mailto fallback or submit
-    const subject = encodeURIComponent(`Aviko Media Project Inquiry: ${service}`);
-    const body = encodeURIComponent(`Name: ${name}\nEmail: ${email}\nService: ${service}\n\nMessage:\n${message}`);
-    
-    // Simulate instantaneous graceful submission
-    showToast('Thank you! Your quote inquiry has been submitted. Our team will get back to you shortly.');
+    if (consent && !consent.checked) {
+      showToast('Please confirm agreement to the Terms and Privacy Policy.');
+      return;
+    }
+
+    // Basic email format validation
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(email)) {
+      showToast('Please provide a valid business email address.');
+      return;
+    }
+
+    const cleanName = name.replace(/[<>]/g, '');
+    const cleanEmail = email.replace(/[<>]/g, '');
+    const cleanMessage = message.replace(/[<>]/g, '');
+
+    showToast('Inquiry received. Our creative team will prepare your proposal.');
     form.reset();
 
-    // Optional mailto trigger
+    // Optional mailto fallback trigger
+    const subject = encodeURIComponent(`Aviko Media Project Inquiry: ${service}`);
+    const body = encodeURIComponent(`Client: ${cleanName}\nEmail: ${cleanEmail}\nService: ${service}\n\nProject Scope:\n${cleanMessage}`);
     setTimeout(() => {
       window.location.href = `mailto:contact@avikocreative.com?subject=${subject}&body=${body}`;
-    }, 1200);
+    }, 1400);
   });
 
   function showToast(msg) {
