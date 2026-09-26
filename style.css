@@ -177,6 +177,47 @@ h1, h2, h3, h4, h5, h6 {
   line-height: 1.6;
 }
 
+/* Subpage Hero Banner & Breadcrumbs */
+.subpage-hero {
+  padding: 3.25rem 0 2.5rem;
+  background: radial-gradient(circle at 50% 0%, rgba(201, 162, 39, 0.08) 0%, transparent 65%);
+  border-bottom: 1px solid var(--border-subtle);
+  margin-bottom: 3rem;
+  text-align: center;
+}
+
+.subpage-hero .section-title {
+  font-size: clamp(1.9rem, 3.2vw, 2.6rem);
+  margin-bottom: 0.65rem;
+}
+
+.subpage-hero .section-subtitle {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.breadcrumb-nav {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  font-size: 0.775rem;
+  color: var(--text-dim);
+  margin-bottom: 1rem;
+}
+
+.breadcrumb-nav a {
+  color: var(--text-muted);
+}
+
+.breadcrumb-nav a:hover {
+  color: var(--gold-light);
+}
+
+.breadcrumb-sep {
+  color: var(--gold-primary);
+}
+
 /* ==========================================================================
    Navigation Bar (Sticky, Compact & Frosted)
    ========================================================================== */
@@ -1724,6 +1765,153 @@ h1, h2, h3, h4, h5, h6 {
 
   .lightbox-close {
     top: -2.5rem;
+  }
+}
+
+/* ==========================================================================
+   Multi-Page & Subpage Shared Styles
+   ========================================================================== */
+.subpage-hero {
+  padding: 4.75rem 0 2.5rem;
+  background: radial-gradient(circle at 50% 0%, rgba(201, 162, 39, 0.08) 0%, rgba(9, 10, 15, 0) 70%);
+  border-bottom: 1px solid var(--border-subtle);
+  margin-bottom: 2rem;
+  text-align: center;
+}
+
+.subpage-hero .container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.breadcrumb-nav {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.8125rem;
+  font-weight: 500;
+  color: var(--text-muted);
+  margin-bottom: 1.25rem;
+}
+
+.breadcrumb-nav a {
+  color: var(--text-secondary);
+  transition: color var(--transition-fast);
+}
+
+.breadcrumb-nav a:hover {
+  color: var(--gold-light);
+}
+
+.breadcrumb-sep {
+  opacity: 0.35;
+}
+
+.subpage-cta-banner {
+  margin: 4.5rem 0 2rem;
+  padding: 3rem 2rem;
+  background: linear-gradient(135deg, rgba(201, 162, 39, 0.08) 0%, rgba(18, 20, 29, 0.9) 100%);
+  border: 1px solid var(--gold-border);
+  border-radius: var(--radius-md);
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.subpage-cta-banner::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: var(--gold-gradient);
+}
+
+.subpage-cta-title {
+  font-size: 1.5rem;
+  font-weight: 800;
+  margin-bottom: 0.75rem;
+  color: var(--text-primary);
+}
+
+.subpage-cta-desc {
+  max-width: 580px;
+  margin: 0 auto 1.75rem;
+  font-size: 0.9375rem;
+  color: var(--text-secondary);
+  line-height: 1.6;
+}
+
+/* Legal Content Styles */
+.legal-content-wrap {
+  max-width: 840px;
+  margin: 3.5rem auto 5rem;
+  padding: 2.75rem;
+  background: var(--bg-surface);
+  border: 1px solid var(--border-medium);
+  border-radius: var(--radius-md);
+}
+
+.legal-header {
+  margin-bottom: 2.5rem;
+  border-bottom: 1px solid var(--border-subtle);
+  padding-bottom: 1.5rem;
+}
+
+.legal-date {
+  font-size: 0.8125rem;
+  color: var(--text-muted);
+  margin-top: 0.65rem;
+}
+
+.legal-section-block {
+  margin-top: 2rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.legal-section-block:first-of-type {
+  border-top: none;
+  margin-top: 0;
+  padding-top: 0;
+}
+
+.legal-section-title {
+  font-size: 1.125rem;
+  font-weight: 700;
+  color: var(--gold-light);
+  margin-bottom: 0.85rem;
+}
+
+.legal-prose p {
+  font-size: 0.9375rem;
+  color: var(--text-secondary);
+  line-height: 1.65;
+  margin-bottom: 0.875rem;
+}
+
+.legal-prose ul {
+  margin-left: 1.5rem;
+  margin-bottom: 0.875rem;
+}
+
+.legal-prose li {
+  font-size: 0.9375rem;
+  color: var(--text-secondary);
+  line-height: 1.6;
+  margin-bottom: 0.35rem;
+}
+
+@media (max-width: 768px) {
+  .legal-content-wrap {
+    padding: 1.5rem;
+    margin: 2rem 0 3.5rem;
+  }
+
+  .subpage-hero {
+    padding: 3.5rem 0 2rem;
   }
 }
 

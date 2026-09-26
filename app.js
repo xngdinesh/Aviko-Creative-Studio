@@ -57,9 +57,20 @@ function initNavbar() {
     });
   }
 
-  // Active section observer
+  // Highlight active page based on current URL path
+  const currentFilename = window.location.pathname.split('/').pop() || 'index.html';
+  navLinks.forEach(link => {
+    const href = link.getAttribute('href');
+    if (href === currentFilename || (currentFilename === '' && (href === 'index.html' || href === '/'))) {
+      link.classList.add('active');
+    } else if (href.indexOf('.html') !== -1 && href !== currentFilename) {
+      link.classList.remove('active');
+    }
+  });
+
+  // Active section observer for on-page hash links (e.g. index.html)
   const sections = document.querySelectorAll('section[id]');
-  if ('IntersectionObserver' in window) {
+  if (sections.length > 0 && 'IntersectionObserver' in window && currentFilename === 'index.html') {
     const navObserver = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
         if (entry.isIntersecting) {
@@ -67,7 +78,7 @@ function initNavbar() {
           navLinks.forEach(link => {
             if (link.getAttribute('href') === `#${id}`) {
               link.classList.add('active');
-            } else {
+            } else if (link.getAttribute('href').startsWith('#')) {
               link.classList.remove('active');
             }
           });
@@ -324,21 +335,23 @@ function initPortfolioAndLightbox() {
   if (nextBtn) nextBtn.addEventListener('click', showNext);
   if (prevBtn) prevBtn.addEventListener('click', showPrev);
 
-  modal.addEventListener('click', (e) => {
-    if (e.target === modal || e.target.classList.contains('lightbox-dialog')) {
-      closeLightbox();
-    }
-  });
+  if (modal) {
+    modal.addEventListener('click', (e) => {
+      if (e.target === modal || e.target.classList.contains('lightbox-dialog')) {
+        closeLightbox();
+      }
+    });
 
-  document.addEventListener('keydown', (e) => {
-    if (!modal.classList.contains('active')) return;
-    if (e.key === 'Escape') closeLightbox();
-    if (e.key === 'ArrowRight') showNext();
-    if (e.key === 'ArrowLeft') showPrev();
-    if (e.key === '+' || e.key === '=') applyZoom(currentZoom + 0.3);
-    if (e.key === '-' || e.key === '_') applyZoom(currentZoom - 0.3);
-    if (e.key === '0') resetZoom();
-  });
+    document.addEventListener('keydown', (e) => {
+      if (!modal.classList.contains('active')) return;
+      if (e.key === 'Escape') closeLightbox();
+      if (e.key === 'ArrowRight') showNext();
+      if (e.key === 'ArrowLeft') showPrev();
+      if (e.key === '+' || e.key === '=') applyZoom(currentZoom + 0.3);
+      if (e.key === '-' || e.key === '_') applyZoom(currentZoom - 0.3);
+      if (e.key === '0') resetZoom();
+    });
+  }
 }
 
 /* --------------------------------------------------------------------------
