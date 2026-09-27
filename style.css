@@ -1668,6 +1668,42 @@ h1, h2, h3, h4, h5, h6 {
   opacity: 1;
 }
 
+/* Fullscreen mode support */
+.lightbox-modal:fullscreen,
+.lightbox-modal.fullscreen-mode {
+  padding: 0;
+  background: rgba(3, 4, 6, 0.98);
+}
+
+.lightbox-modal:fullscreen .lightbox-dialog,
+.lightbox-modal.fullscreen-mode .lightbox-dialog {
+  width: 100vw;
+  max-width: 100vw;
+  height: 100vh;
+  max-height: 100vh;
+}
+
+.lightbox-modal:fullscreen .perspective-carousel-img-wrap,
+.lightbox-modal.fullscreen-mode .perspective-carousel-img-wrap {
+  max-height: 74vh;
+}
+
+.lightbox-modal:fullscreen .perspective-carousel-img,
+.lightbox-modal.fullscreen-mode .perspective-carousel-img {
+  max-height: 74vh;
+}
+
+.lightbox-modal:fullscreen .lightbox-close,
+.lightbox-modal.fullscreen-mode .lightbox-close {
+  top: 1.25rem;
+  right: 1.5rem;
+}
+
+.lightbox-modal:fullscreen .lightbox-toolbar,
+.lightbox-modal.fullscreen-mode .lightbox-toolbar {
+  margin-top: 1rem;
+}
+
 .lightbox-dialog {
   position: relative;
   width: 96vw;

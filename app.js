@@ -130,6 +130,7 @@ function initPortfolioAndLightbox() {
   const zoomOutBtn = document.getElementById('lightboxZoomOut');
   const zoomResetBtn = document.getElementById('lightboxZoomReset');
   const zoomLevelLabel = document.getElementById('lightboxZoomLevel');
+  const fullscreenBtn = document.getElementById('lightboxFullscreen');
 
   const carousel = document.getElementById('perspectiveCarousel');
   const viewport = document.getElementById('perspectiveViewport');
@@ -240,9 +241,64 @@ function initPortfolioAndLightbox() {
     applyFilter('all', false);
   }
 
+  // Fullscreen support
+  function toggleFullscreen() {
+    if (!modal) return;
+    const isFs = document.fullscreenElement || modal.classList.contains('fullscreen-mode');
+    if (!isFs) {
+      if (modal.requestFullscreen) {
+        modal.requestFullscreen().catch(() => {
+          modal.classList.add('fullscreen-mode');
+          updateFsUI(true);
+        });
+      } else {
+        modal.classList.add('fullscreen-mode');
+        updateFsUI(true);
+      }
+    } else {
+      if (document.fullscreenElement && document.exitFullscreen) {
+        document.exitFullscreen().catch(() => {});
+      }
+      modal.classList.remove('fullscreen-mode');
+      updateFsUI(false);
+    }
+  }
+
+  function updateFsUI(isFs) {
+    const expandIcons = modal ? modal.querySelectorAll('.fs-expand-icon') : [];
+    const compressIcons = modal ? modal.querySelectorAll('.fs-compress-icon') : [];
+    expandIcons.forEach(icon => icon.style.display = isFs ? 'none' : 'block');
+    compressIcons.forEach(icon => icon.style.display = isFs ? 'block' : 'none');
+    if (fullscreenBtn) {
+      fullscreenBtn.setAttribute('title', isFs ? 'Exit Fullscreen (F)' : 'Fullscreen (F)');
+      fullscreenBtn.setAttribute('aria-label', isFs ? 'Exit Fullscreen' : 'Toggle fullscreen');
+    }
+    requestAnimationFrame(() => {
+      selectSlide(currentIndex, true);
+    });
+  }
+
+  document.addEventListener('fullscreenchange', () => {
+    const isFs = !!document.fullscreenElement;
+    if (!isFs) {
+      modal.classList.remove('fullscreen-mode');
+    } else {
+      modal.classList.add('fullscreen-mode');
+    }
+    updateFsUI(isFs);
+  });
+
+  if (fullscreenBtn) fullscreenBtn.addEventListener('click', toggleFullscreen);
+
   // Calculate Responsive Slide Width
   function getSafeSlideWidth() {
+    const isFs = document.fullscreenElement || (modal && modal.classList.contains('fullscreen-mode'));
     const vpWidth = viewport ? viewport.clientWidth : window.innerWidth;
+    if (isFs) {
+      if (vpWidth < 768) return Math.min(Math.round(vpWidth * 0.88), 640);
+      if (vpWidth < 1200) return Math.min(Math.round(vpWidth * 0.75), 880);
+      return Math.min(Math.round(vpWidth * 0.65), 1100);
+    }
     if (vpWidth < 480) return Math.max(220, Math.min(vpWidth - 56, 310));
     if (vpWidth < 768) return Math.min(Math.round(vpWidth * 0.65), 380);
     if (vpWidth < 1200) return 460;
@@ -555,7 +611,14 @@ function initPortfolioAndLightbox() {
 
   function closeLightbox() {
     resetZoom();
-    if (modal) modal.classList.remove('active');
+    if (document.fullscreenElement && document.exitFullscreen) {
+      document.exitFullscreen().catch(() => {});
+    }
+    if (modal) {
+      modal.classList.remove('fullscreen-mode');
+      modal.classList.remove('active');
+    }
+    updateFsUI(false);
     document.body.style.overflow = '';
   }
 
@@ -582,6 +645,10 @@ function initPortfolioAndLightbox() {
     document.addEventListener('keydown', (e) => {
       if (!modal.classList.contains('active')) return;
       if (e.key === 'Escape') closeLightbox();
+      if (e.key === 'f' || e.key === 'F') {
+        e.preventDefault();
+        toggleFullscreen();
+      }
       if (e.key === 'ArrowRight') {
         e.preventDefault();
         selectSlide(currentIndex + 1);
