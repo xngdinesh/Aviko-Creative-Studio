@@ -534,7 +534,7 @@ function initContactForm() {
     const subject = encodeURIComponent(`Aviko Media Project Inquiry: ${service}`);
     const body = encodeURIComponent(`Client: ${cleanName}\nEmail: ${cleanEmail}\nService: ${service}\n\nProject Scope:\n${cleanMessage}`);
     setTimeout(() => {
-      window.location.href = `mailto:contact@avikocreative.com?subject=${subject}&body=${body}`;
+      window.location.href = `mailto:avikomedia07@gmail.com?subject=${subject}&body=${body}`;
     }, 1400);
   });
 
