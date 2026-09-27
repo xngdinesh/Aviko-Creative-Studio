@@ -14,22 +14,15 @@ A high-performance, multi-page digital showcase engineered for **Aviko Media**, 
 
 ### 1. Multi-Page Static Site Architecture
 Clean semantic routing without heavy client-side frameworks:
-- **`index.html`** — Comprehensive flagship homepage with hero metrics, capabilities overview, featured spotlight carousel, portfolio grid, video reel showcase, studio overview, and proposal inquiry form.
+- **`index.html`** — Comprehensive flagship homepage with hero metrics, capabilities overview, portfolio grid, video reel showcase, studio overview, and proposal inquiry form.
 - **`services.html`** — Dedicated capabilities index spanning Brand Identity, Commercial Video Production, 3D Motion, Packaging, Digital Products, Social Campaigns, and Strategy.
-- **`portfolio.html`** — Dedicated archive featuring discipline filter pills, 3D spotlight reel, and full masonry grid.
+- **`portfolio.html`** — Dedicated archive featuring discipline filter pills and full masonry grid.
 - **`showreel.html`** — Cinema-grade video portfolio with interactive trailer previews, client metrics, and production breakdown.
 - **`about.html`** — Studio heritage, creative philosophy, leadership, and agency milestones.
 - **`contact.html`** — Strategic proposal booking interface with input validation and direct mail dispatch.
 - **`terms.html` & `privacy.html`** — Legal and governance policies.
 
-### 2. VengeanceUI Diagonal Carousel
-- Custom diagonal motion engine ported to vanilla JavaScript.
-- Physics-based diagonal rotation (`rotate(distance * step)`) and vertical offsets (`translateY(distance * step)`).
-- Floating glassmorphic control pill with morphing indicator dots (`w-2` to `w-7`).
-- Full navigation support: keyboard arrow keys (`←` / `→`), mobile touch swipe, and click-to-center.
-- Direct click integration opening the active slide in the fullscreen 4K lightbox.
-
-### 3. Interactive 4K Lightbox Modal
+### 2. Interactive 4K Lightbox Modal
 - Deep inspection modal supporting mouse wheel zooming, pinch-to-zoom on touch devices, and click-drag panning.
 - On-screen zoom percentage indicator and reset controls.
 - Keyboard shortcuts: `Escape` (close), `ArrowLeft` / `ArrowRight` (previous/next slide), `+` / `-` (zoom), `0` (reset).
