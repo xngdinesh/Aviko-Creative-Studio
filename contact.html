@@ -125,34 +125,36 @@
           <!-- Right Form Column -->
           <div class="contact-form-card fade-up">
             <form id="contactForm" novalidate>
-              <div class="form-group">
-                <label for="userName" class="form-label">Client Name *</label>
-                <input type="text" id="userName" name="name" class="form-input" placeholder="e.g. Alexander Vance" required>
-              </div>
+              <div class="form-grid-2">
+                <div class="form-group">
+                  <label for="userName" class="form-label">Client Name *</label>
+                  <input type="text" id="userName" name="name" class="form-input" placeholder="e.g. Alexander Vance" required>
+                </div>
 
-              <div class="form-group">
-                <label for="userEmail" class="form-label">Corporate Email Address *</label>
-                <input type="email" id="userEmail" name="email" class="form-input" placeholder="e.g. alex@yourbrand.com" required>
-              </div>
+                <div class="form-group">
+                  <label for="userEmail" class="form-label">Corporate Email Address *</label>
+                  <input type="email" id="userEmail" name="email" class="form-input" placeholder="e.g. alex@yourbrand.com" required>
+                </div>
 
-              <div class="form-group">
-                <label for="userLocation" class="form-label">Client / Organization Location</label>
-                <input type="text" id="userLocation" name="location" class="form-input" placeholder="e.g. New York, London, Remote">
-              </div>
+                <div class="form-group">
+                  <label for="userLocation" class="form-label">Client / Organization Location</label>
+                  <input type="text" id="userLocation" name="location" class="form-input" placeholder="e.g. New York, London, Remote">
+                </div>
 
-              <div class="form-group">
-                <label for="userService" class="form-label">Primary Engagement Scope</label>
-                <select id="userService" name="service" class="form-select">
-                  <option value="Branding & Identity System">Branding & Identity System</option>
-                  <option value="Web Development (Custom Web Apps, Headless E-Commerce & SaaS)">Web Development (Custom Web Apps, Headless E-Commerce & SaaS)</option>
-                  <option value="Packaging & Product Design">Packaging & Product Design</option>
-                  <option value="Commercial Advertising & Marketing Collateral">Commercial Advertising & Marketing Collateral</option>
-                  <option value="Social Media Performance Creative">Social Media Performance Creative</option>
-                  <option value="Print Collateral & Editorial Systems">Print Collateral & Editorial Systems</option>
-                  <option value="Commercial Video Production & Motion Showreel">Commercial Video Production & Motion Showreel</option>
-                  <option value="Complete Agency Retainer / Full Package">Complete Agency Retainer / Full Package</option>
-                  <option value="Custom Project Specification">Custom Project Specification</option>
-                </select>
+                <div class="form-group">
+                  <label for="userService" class="form-label">Primary Engagement Scope</label>
+                  <select id="userService" name="service" class="form-select">
+                    <option value="Branding & Identity System">Branding & Identity System</option>
+                    <option value="Web Development (Custom Web Apps, Headless E-Commerce & SaaS)">Web Development (Custom Web Apps, Headless E-Commerce & SaaS)</option>
+                    <option value="Packaging & Product Design">Packaging & Product Design</option>
+                    <option value="Commercial Advertising & Marketing Collateral">Commercial Advertising & Marketing Collateral</option>
+                    <option value="Social Media Performance Creative">Social Media Performance Creative</option>
+                    <option value="Print Collateral & Editorial Systems">Print Collateral & Editorial Systems</option>
+                    <option value="Commercial Video Production & Motion Showreel">Commercial Video Production & Motion Showreel</option>
+                    <option value="Complete Agency Retainer / Full Package">Complete Agency Retainer / Full Package</option>
+                    <option value="Custom Project Specification">Custom Project Specification</option>
+                  </select>
+                </div>
               </div>
 
               <div class="form-group">
@@ -167,7 +169,7 @@
                 </label>
               </div>
 
-              <button type="submit" class="btn btn-primary" style="width: 100%; padding: 0.8rem;" id="submitQuoteBtn">
+              <button type="submit" class="btn btn-primary" style="width: 100%; padding: 0.65rem 1rem;" id="submitQuoteBtn">
                 <span>Submit Creative Inquiry</span>
                 <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
               </button>

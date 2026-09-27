@@ -125,16 +125,36 @@ function initPortfolioAndLightbox() {
   const allCards = Array.from(document.querySelectorAll('.portfolio-card'));
   
   const modal = document.getElementById('lightboxModal');
-  const modalImg = document.getElementById('lightboxImg');
-  const modalTitle = document.getElementById('lightboxTitle');
-  const modalCategory = document.getElementById('lightboxCategory');
-  const closeBtn = document.querySelector('.lightbox-close');
-  const prevBtn = document.querySelector('.lightbox-prev');
-  const nextBtn = document.querySelector('.lightbox-next');
+  const closeBtn = modal ? modal.querySelector('.lightbox-close') : null;
+  const zoomInBtn = document.getElementById('lightboxZoomIn');
+  const zoomOutBtn = document.getElementById('lightboxZoomOut');
+  const zoomResetBtn = document.getElementById('lightboxZoomReset');
+  const zoomLevelLabel = document.getElementById('lightboxZoomLevel');
+
+  const carousel = document.getElementById('perspectiveCarousel');
+  const viewport = document.getElementById('perspectiveViewport');
+  const track = document.getElementById('perspectiveTrack');
+  const prevBtn = document.getElementById('perspectivePrev');
+  const nextBtn = document.getElementById('perspectiveNext');
+  const dotsContainer = document.getElementById('perspectiveDots');
 
   let currentFilter = 'all';
   let activeCards = [...allCards];
-  let currentLightboxIndex = 0;
+
+  // Carousel Configuration & State
+  let carouselItems = [];
+  let currentIndex = 0;
+  const rotationStep = 60;
+  const inactiveScale = 0.85;
+  const loop = false;
+
+  // Zoom & Pan State
+  let currentZoom = 1;
+  let panX = 0;
+  let panY = 0;
+  let isDragging = false;
+  let startX = 0;
+  let startY = 0;
 
   function updateActiveCards() {
     activeCards = allCards.filter(card => {
@@ -147,7 +167,6 @@ function initPortfolioAndLightbox() {
   function applyFilter(filterKey, pushState = false) {
     currentFilter = filterKey || 'all';
 
-    // Update active state on filter pills
     let matchedPill = null;
     filterBtns.forEach(btn => {
       const pillFilter = btn.getAttribute('data-filter');
@@ -221,19 +240,26 @@ function initPortfolioAndLightbox() {
     applyFilter('all', false);
   }
 
-  // Zoom and Pan State
-  let currentZoom = 1;
-  let panX = 0;
-  let panY = 0;
-  let isDragging = false;
-  let startX = 0;
-  let startY = 0;
+  // Calculate Responsive Slide Width
+  function getSafeSlideWidth() {
+    const vpWidth = viewport ? viewport.clientWidth : window.innerWidth;
+    if (vpWidth < 480) return Math.max(220, Math.min(vpWidth - 56, 310));
+    if (vpWidth < 768) return Math.min(Math.round(vpWidth * 0.65), 380);
+    if (vpWidth < 1200) return 460;
+    return 520;
+  }
 
-  const zoomInBtn = document.getElementById('lightboxZoomIn');
-  const zoomOutBtn = document.getElementById('lightboxZoomOut');
-  const zoomResetBtn = document.getElementById('lightboxZoomReset');
-  const zoomLevelLabel = document.getElementById('lightboxZoomLevel');
-  const imgWrapper = document.getElementById('lightboxImgWrapper');
+  function getActiveSlideImg() {
+    if (!track) return null;
+    const activeSlide = track.querySelector(`.perspective-carousel-slide[data-index="${currentIndex}"]`);
+    return activeSlide ? activeSlide.querySelector('.perspective-carousel-img') : null;
+  }
+
+  function getActiveSlideImgWrap() {
+    if (!track) return null;
+    const activeSlide = track.querySelector(`.perspective-carousel-slide[data-index="${currentIndex}"]`);
+    return activeSlide ? activeSlide.querySelector('.perspective-carousel-img-wrap') : null;
+  }
 
   function applyZoom(newZoom, updatePan = false) {
     currentZoom = Math.min(Math.max(newZoom, 1), 3.5);
@@ -241,45 +267,63 @@ function initPortfolioAndLightbox() {
       panX = 0;
       panY = 0;
     }
-    modalImg.style.transform = `scale(${currentZoom}) translate(${panX}px, ${panY}px)`;
+    const activeImg = getActiveSlideImg();
+    if (activeImg) {
+      activeImg.style.transform = `scale(${currentZoom}) translate(${panX}px, ${panY}px)`;
+    }
     if (zoomLevelLabel) zoomLevelLabel.textContent = `${Math.round(currentZoom * 100)}%`;
-    if (imgWrapper) {
+
+    const activeWrap = getActiveSlideImgWrap();
+    if (activeWrap) {
       if (currentZoom > 1) {
-        imgWrapper.classList.add('is-zoomed');
+        activeWrap.classList.add('is-zoomed');
       } else {
-        imgWrapper.classList.remove('is-zoomed', 'is-panning');
+        activeWrap.classList.remove('is-zoomed', 'is-panning');
       }
     }
   }
 
   function resetZoom() {
-    applyZoom(1);
+    currentZoom = 1;
+    panX = 0;
+    panY = 0;
+    isDragging = false;
+    const activeImg = getActiveSlideImg();
+    if (activeImg) {
+      activeImg.style.transform = 'scale(1) translate(0px, 0px)';
+    }
+    const activeWrap = getActiveSlideImgWrap();
+    if (activeWrap) {
+      activeWrap.classList.remove('is-zoomed', 'is-panning');
+    }
+    if (zoomLevelLabel) zoomLevelLabel.textContent = '100%';
   }
 
   if (zoomInBtn) zoomInBtn.addEventListener('click', () => applyZoom(currentZoom + 0.3));
   if (zoomOutBtn) zoomOutBtn.addEventListener('click', () => applyZoom(currentZoom - 0.3));
   if (zoomResetBtn) zoomResetBtn.addEventListener('click', resetZoom);
 
-  // Mouse wheel zoom
-  if (imgWrapper) {
-    imgWrapper.addEventListener('wheel', (e) => {
+  // Wheel and Pan Zoom for Active Slide
+  if (viewport) {
+    viewport.addEventListener('wheel', (e) => {
       e.preventDefault();
       const delta = e.deltaY < 0 ? 0.25 : -0.25;
       applyZoom(currentZoom + delta);
     }, { passive: false });
 
-    // Double-click toggle zoom
-    imgWrapper.addEventListener('dblclick', () => {
+    viewport.addEventListener('dblclick', (e) => {
+      if (e.target.closest('.perspective-control-btn') || e.target.closest('.perspective-dot')) return;
       applyZoom(currentZoom > 1 ? 1 : 2);
     });
 
-    // Drag to pan when zoomed
-    imgWrapper.addEventListener('mousedown', (e) => {
+    viewport.addEventListener('mousedown', (e) => {
       if (currentZoom <= 1) return;
+      const activeWrap = getActiveSlideImgWrap();
+      if (!activeWrap || !activeWrap.contains(e.target)) return;
       isDragging = true;
       startX = e.clientX - panX * currentZoom;
       startY = e.clientY - panY * currentZoom;
-      imgWrapper.classList.add('is-panning');
+      activeWrap.classList.add('is-panning');
       e.preventDefault();
     });
 
@@ -287,13 +331,17 @@ function initPortfolioAndLightbox() {
       if (!isDragging || currentZoom <= 1) return;
       panX = (e.clientX - startX) / currentZoom;
       panY = (e.clientY - startY) / currentZoom;
-      modalImg.style.transform = `scale(${currentZoom}) translate(${panX}px, ${panY}px)`;
+      const activeImg = getActiveSlideImg();
+      if (activeImg) {
+        activeImg.style.transform = `scale(${currentZoom}) translate(${panX}px, ${panY}px)`;
+      }
     });
 
     window.addEventListener('mouseup', () => {
       if (isDragging) {
         isDragging = false;
-        if (imgWrapper) imgWrapper.classList.remove('is-panning');
+        const activeWrap = getActiveSlideImgWrap();
+        if (activeWrap) activeWrap.classList.remove('is-panning');
       }
     });
 
@@ -303,7 +351,7 @@ function initPortfolioAndLightbox() {
     let touchStartX = 0;
     let touchStartY = 0;
 
-    imgWrapper.addEventListener('touchstart', (e) => {
+    viewport.addEventListener('touchstart', (e) => {
       if (e.touches.length === 2) {
         touchStartDist = Math.hypot(
           e.touches[0].clientX - e.touches[1].clientX,
@@ -317,7 +365,7 @@ function initPortfolioAndLightbox() {
       }
     }, { passive: true });
 
-    imgWrapper.addEventListener('touchmove', (e) => {
+    viewport.addEventListener('touchmove', (e) => {
       if (e.touches.length === 2 && touchStartDist > 0) {
         const dist = Math.hypot(
           e.touches[0].clientX - e.touches[1].clientX,
@@ -328,68 +376,193 @@ function initPortfolioAndLightbox() {
       } else if (e.touches.length === 1 && isDragging && currentZoom > 1) {
         panX = (e.touches[0].clientX - touchStartX) / currentZoom;
         panY = (e.touches[0].clientY - touchStartY) / currentZoom;
-        modalImg.style.transform = `scale(${currentZoom}) translate(${panX}px, ${panY}px)`;
+        const activeImg = getActiveSlideImg();
+        if (activeImg) {
+          activeImg.style.transform = `scale(${currentZoom}) translate(${panX}px, ${panY}px)`;
+        }
       }
     }, { passive: true });
 
-    imgWrapper.addEventListener('touchend', () => {
+    viewport.addEventListener('touchend', () => {
       isDragging = false;
       touchStartDist = 0;
     });
   }
 
-  // Lightbox functions
-  function openLightbox(index) {
-    if (activeCards.length === 0 || !activeCards[index]) return;
+  // Perspective Carousel Navigation Engine
+  function selectSlide(nextIndex, isInitial = false) {
+    if (!carouselItems.length || !track) return;
+
+    const maxIndex = Math.max(0, carouselItems.length - 1);
+    const resolvedIndex = loop
+      ? (nextIndex + carouselItems.length) % carouselItems.length
+      : Math.min(Math.max(nextIndex, 0), maxIndex);
+
+    currentIndex = resolvedIndex;
     resetZoom();
-    currentLightboxIndex = index;
-    const card = activeCards[index];
-    const imgEl = card.querySelector('img');
-    const title = card.getAttribute('data-title') || '';
-    const cat = card.getAttribute('data-category-label') || '';
 
-    modalImg.src = imgEl.src;
-    modalImg.alt = title;
-    modalTitle.textContent = title;
-    modalCategory.textContent = cat;
+    const safeSlideWidth = getSafeSlideWidth();
+    const slides = Array.from(track.querySelectorAll('.perspective-carousel-slide'));
 
-    modal.classList.add('active');
-    document.body.style.overflow = 'hidden';
+    slides.forEach(slide => {
+      slide.style.width = `${safeSlideWidth}px`;
+    });
+
+    const trackOffset = -(currentIndex * safeSlideWidth + safeSlideWidth / 2);
+    if (isInitial) {
+      track.style.transition = 'none';
+      track.style.transform = `translateX(${trackOffset}px) translateY(-50%)`;
+      void track.offsetWidth;
+      track.style.transition = '';
+    } else {
+      track.style.transform = `translateX(${trackOffset}px) translateY(-50%)`;
+    }
+
+    slides.forEach((slide, idx) => {
+      const inner = slide.querySelector('.perspective-carousel-slide-inner');
+      const labelWrap = slide.querySelector('.perspective-carousel-label-wrap');
+      const btn = slide.querySelector('.perspective-carousel-card-btn');
+      const isActive = idx === currentIndex;
+      const rotY = (currentIndex - idx) * rotationStep;
+      const scale = isActive ? 1 : inactiveScale;
+
+      if (inner) {
+        if (isInitial) {
+          inner.style.transition = 'none';
+          inner.style.transform = `rotateY(${rotY}deg) scale(${scale})`;
+          void inner.offsetWidth;
+          inner.style.transition = '';
+        } else {
+          inner.style.transform = `rotateY(${rotY}deg) scale(${scale})`;
+        }
+      }
+
+      if (isActive) {
+        slide.classList.add('active');
+        if (btn) btn.setAttribute('aria-current', 'true');
+        if (labelWrap) {
+          labelWrap.style.filter = 'blur(0px)';
+          labelWrap.style.opacity = '1';
+        }
+      } else {
+        slide.classList.remove('active');
+        if (btn) btn.removeAttribute('aria-current');
+        if (labelWrap) {
+          labelWrap.style.filter = 'blur(2px)';
+          labelWrap.style.opacity = '0';
+        }
+      }
+    });
+
+    if (prevBtn) prevBtn.disabled = !loop && currentIndex === 0;
+    if (nextBtn) nextBtn.disabled = !loop && currentIndex === maxIndex;
+
+    if (dotsContainer) {
+      const dots = Array.from(dotsContainer.querySelectorAll('.perspective-dot'));
+      dots.forEach((dot, idx) => {
+        if (idx === currentIndex) {
+          dot.classList.add('active');
+          dot.setAttribute('aria-current', 'true');
+          dot.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+        } else {
+          dot.classList.remove('active');
+          dot.removeAttribute('aria-current');
+        }
+      });
+    }
   }
 
-  // Allow external components (DiagonalCarousel) to open modal with custom image data
-  window.openLightboxWithData = function(src, title, category) {
-    if (!modal || !modalImg) return;
-    resetZoom();
-    modalImg.src = src;
-    modalImg.alt = title || 'Portfolio Showcase';
-    if (modalTitle) modalTitle.textContent = title || '';
-    if (modalCategory) modalCategory.textContent = category || 'Featured Work';
+  function renderCarouselDOM() {
+    if (!track || !dotsContainer) return;
+
+    track.innerHTML = carouselItems.map((item, idx) => `
+      <div class="perspective-carousel-slide" data-index="${idx}">
+        <div class="perspective-carousel-slide-inner">
+          <button type="button" class="perspective-carousel-card-btn" aria-label="Show ${item.title}">
+            <div class="perspective-carousel-img-wrap">
+              <img src="${item.src}" alt="${item.alt}" draggable="false" class="perspective-carousel-img">
+            </div>
+          </button>
+          <div class="perspective-carousel-label-wrap">
+            <div class="perspective-carousel-title">${item.title}</div>
+            ${item.category ? `<span class="perspective-carousel-category">${item.category}</span>` : ''}
+          </div>
+        </div>
+      </div>
+    `).join('');
+
+    dotsContainer.innerHTML = carouselItems.map((item, idx) => `
+      <button type="button" class="perspective-dot" data-index="${idx}" aria-label="Show slide ${idx + 1}: ${item.title}"></button>
+    `).join('');
+
+    track.querySelectorAll('.perspective-carousel-card-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const slide = btn.closest('.perspective-carousel-slide');
+        if (slide) {
+          const idx = parseInt(slide.getAttribute('data-index'), 10);
+          if (!isNaN(idx)) selectSlide(idx);
+        }
+      });
+    });
+
+    dotsContainer.querySelectorAll('.perspective-dot').forEach(dot => {
+      dot.addEventListener('click', () => {
+        const idx = parseInt(dot.getAttribute('data-index'), 10);
+        if (!isNaN(idx)) selectSlide(idx);
+      });
+    });
+  }
+
+  function openLightbox(index) {
+    if (!modal || activeCards.length === 0 || !activeCards[index]) return;
+
+    carouselItems = activeCards.map(card => {
+      const img = card.querySelector('img');
+      return {
+        src: img ? (img.currentSrc || img.getAttribute('src') || '') : '',
+        title: card.getAttribute('data-title') || card.querySelector('.portfolio-title')?.textContent?.trim() || 'Portfolio Work',
+        alt: (img ? img.alt : '') || card.getAttribute('data-title') || 'Portfolio Work',
+        category: card.getAttribute('data-category-label') || ''
+      };
+    });
+
+    renderCarouselDOM();
     modal.classList.add('active');
     document.body.style.overflow = 'hidden';
+
+    requestAnimationFrame(() => {
+      selectSlide(index, true);
+      if (carousel) carousel.focus();
+    });
+  }
+
+  window.openLightboxWithData = function(src, title, category) {
+    if (!modal) return;
+    carouselItems = [{
+      src: src,
+      title: title || 'Portfolio Showcase',
+      alt: title || 'Portfolio Showcase',
+      category: category || 'Featured Work'
+    }];
+    renderCarouselDOM();
+    modal.classList.add('active');
+    document.body.style.overflow = 'hidden';
+    requestAnimationFrame(() => {
+      selectSlide(0, true);
+      if (carousel) carousel.focus();
+    });
   };
 
   function closeLightbox() {
     resetZoom();
-    modal.classList.remove('active');
+    if (modal) modal.classList.remove('active');
     document.body.style.overflow = '';
   }
 
-  function showNext() {
-    if (activeCards.length === 0) return;
-    resetZoom();
-    currentLightboxIndex = (currentLightboxIndex + 1) % activeCards.length;
-    openLightbox(currentLightboxIndex);
-  }
+  if (prevBtn) prevBtn.addEventListener('click', () => selectSlide(currentIndex - 1));
+  if (nextBtn) nextBtn.addEventListener('click', () => selectSlide(currentIndex + 1));
+  if (closeBtn) closeBtn.addEventListener('click', closeLightbox);
 
-  function showPrev() {
-    if (activeCards.length === 0) return;
-    resetZoom();
-    currentLightboxIndex = (currentLightboxIndex - 1 + activeCards.length) % activeCards.length;
-    openLightbox(currentLightboxIndex);
-  }
-
-  // Card click triggers lightbox
   allCards.forEach(card => {
     card.addEventListener('click', () => {
       const idx = activeCards.indexOf(card);
@@ -398,10 +571,6 @@ function initPortfolioAndLightbox() {
       }
     });
   });
-
-  if (closeBtn) closeBtn.addEventListener('click', closeLightbox);
-  if (nextBtn) nextBtn.addEventListener('click', showNext);
-  if (prevBtn) prevBtn.addEventListener('click', showPrev);
 
   if (modal) {
     modal.addEventListener('click', (e) => {
@@ -413,12 +582,24 @@ function initPortfolioAndLightbox() {
     document.addEventListener('keydown', (e) => {
       if (!modal.classList.contains('active')) return;
       if (e.key === 'Escape') closeLightbox();
-      if (e.key === 'ArrowRight') showNext();
-      if (e.key === 'ArrowLeft') showPrev();
+      if (e.key === 'ArrowRight') {
+        e.preventDefault();
+        selectSlide(currentIndex + 1);
+      }
+      if (e.key === 'ArrowLeft') {
+        e.preventDefault();
+        selectSlide(currentIndex - 1);
+      }
       if (e.key === '+' || e.key === '=') applyZoom(currentZoom + 0.3);
       if (e.key === '-' || e.key === '_') applyZoom(currentZoom - 0.3);
       if (e.key === '0') resetZoom();
     });
+
+    window.addEventListener('resize', () => {
+      if (modal.classList.contains('active')) {
+        selectSlide(currentIndex, true);
+      }
+    }, { passive: true });
   }
 }
 
