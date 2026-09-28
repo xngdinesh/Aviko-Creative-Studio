@@ -157,6 +157,15 @@ function initPortfolioAndLightbox() {
   let startX = 0;
   let startY = 0;
 
+  // Swipe & Drag Swap State
+  let isSwiping = false;
+  let wasSwiping = false;
+  let swipeStartX = 0;
+  let swipeStartY = 0;
+  let swipeDeltaX = 0;
+  let swipeStartTime = 0;
+  let cachedSlideWidth = 520;
+
   function updateActiveCards() {
     activeCards = allCards.filter(card => {
       const cat = card.getAttribute('data-category');
@@ -359,7 +368,7 @@ function initPortfolioAndLightbox() {
   if (zoomOutBtn) zoomOutBtn.addEventListener('click', () => applyZoom(currentZoom - 0.3));
   if (zoomResetBtn) zoomResetBtn.addEventListener('click', resetZoom);
 
-  // Wheel and Pan Zoom for Active Slide
+  // Wheel, Drag Panning, and Swipe Swap for Perspective Carousel
   if (viewport) {
     viewport.addEventListener('wheel', (e) => {
       e.preventDefault();
@@ -368,61 +377,179 @@ function initPortfolioAndLightbox() {
     }, { passive: false });
 
     viewport.addEventListener('dblclick', (e) => {
-      if (e.target.closest('.perspective-control-btn') || e.target.closest('.perspective-dot')) return;
+      if (e.target.closest('.perspective-control-btn') || e.target.closest('.perspective-dot') || e.target.closest('.lightbox-toolbar')) return;
       applyZoom(currentZoom > 1 ? 1 : 2);
     });
 
-    viewport.addEventListener('mousedown', (e) => {
-      if (currentZoom <= 1) return;
-      const activeWrap = getActiveSlideImgWrap();
-      if (!activeWrap || !activeWrap.contains(e.target)) return;
-      isDragging = true;
-      startX = e.clientX - panX * currentZoom;
-      startY = e.clientY - panY * currentZoom;
-      activeWrap.classList.add('is-panning');
-      e.preventDefault();
-    });
-
-    window.addEventListener('mousemove', (e) => {
-      if (!isDragging || currentZoom <= 1) return;
-      panX = (e.clientX - startX) / currentZoom;
-      panY = (e.clientY - startY) / currentZoom;
-      const activeImg = getActiveSlideImg();
-      if (activeImg) {
-        activeImg.style.transform = `scale(${currentZoom}) translate(${panX}px, ${panY}px)`;
-      }
-    });
-
-    window.addEventListener('mouseup', () => {
+    function endDragOrSwipe() {
       if (isDragging) {
         isDragging = false;
         const activeWrap = getActiveSlideImgWrap();
         if (activeWrap) activeWrap.classList.remove('is-panning');
       }
+
+      if (isSwiping) {
+        isSwiping = false;
+        if (track) {
+          track.classList.remove('is-dragging');
+          track.style.transition = '';
+          const slideInners = track.querySelectorAll('.perspective-carousel-slide-inner');
+          slideInners.forEach(inner => {
+            inner.style.transition = '';
+          });
+        }
+
+        const maxIndex = Math.max(0, carouselItems.length - 1);
+        const deltaTime = Math.max(1, Date.now() - swipeStartTime);
+        const velocity = Math.abs(swipeDeltaX) / deltaTime;
+        const threshold = Math.min(cachedSlideWidth * 0.16, 45);
+        const isFlick = velocity > 0.3 && Math.abs(swipeDeltaX) > 16;
+        const isPastThreshold = Math.abs(swipeDeltaX) > threshold;
+
+        if (isPastThreshold || isFlick) {
+          if (swipeDeltaX < 0) {
+            selectSlide(loop || currentIndex < maxIndex ? currentIndex + 1 : currentIndex);
+          } else {
+            selectSlide(loop || currentIndex > 0 ? currentIndex - 1 : currentIndex);
+          }
+        } else {
+          selectSlide(currentIndex);
+        }
+
+        setTimeout(() => {
+          wasSwiping = false;
+        }, 80);
+      }
+    }
+
+    // Mouse drag handlers
+    viewport.addEventListener('mousedown', (e) => {
+      if (e.button !== 0) return;
+      if (e.target.closest('.perspective-control-btn') || e.target.closest('.perspective-dot') || e.target.closest('.lightbox-toolbar') || e.target.closest('.lightbox-close')) {
+        return;
+      }
+
+      if (currentZoom > 1) {
+        const activeWrap = getActiveSlideImgWrap();
+        if (!activeWrap || !activeWrap.contains(e.target)) return;
+        isDragging = true;
+        startX = e.clientX - panX * currentZoom;
+        startY = e.clientY - panY * currentZoom;
+        activeWrap.classList.add('is-panning');
+        e.preventDefault();
+      } else {
+        if (!carouselItems.length || !track) return;
+        isSwiping = true;
+        wasSwiping = false;
+        swipeStartX = e.clientX;
+        swipeStartY = e.clientY;
+        swipeDeltaX = 0;
+        swipeStartTime = Date.now();
+        cachedSlideWidth = getSafeSlideWidth();
+        track.classList.add('is-dragging');
+        track.style.transition = 'none';
+        track.querySelectorAll('.perspective-carousel-slide-inner').forEach(inner => {
+          inner.style.transition = 'none';
+        });
+      }
     });
 
-    // Touch support (pinch to zoom & drag)
+    window.addEventListener('mousemove', (e) => {
+      if (isDragging && currentZoom > 1) {
+        panX = (e.clientX - startX) / currentZoom;
+        panY = (e.clientY - startY) / currentZoom;
+        const activeImg = getActiveSlideImg();
+        if (activeImg) {
+          activeImg.style.transform = `scale(${currentZoom}) translate(${panX}px, ${panY}px)`;
+        }
+        return;
+      }
+
+      if (isSwiping && currentZoom <= 1) {
+        swipeDeltaX = e.clientX - swipeStartX;
+        if (Math.abs(swipeDeltaX) > 4) {
+          wasSwiping = true;
+          if (e.cancelable) e.preventDefault();
+        }
+
+        const maxIndex = Math.max(0, carouselItems.length - 1);
+        let effectiveDelta = swipeDeltaX;
+        if (!loop) {
+          if ((currentIndex === 0 && effectiveDelta > 0) || (currentIndex === maxIndex && effectiveDelta < 0)) {
+            effectiveDelta *= 0.28;
+          }
+        }
+
+        const baseOffset = -(currentIndex * cachedSlideWidth + cachedSlideWidth / 2);
+        track.style.transform = `translate3d(${baseOffset + effectiveDelta}px, -50%, 0)`;
+
+        const progress = effectiveDelta / cachedSlideWidth;
+        const slides = track.querySelectorAll('.perspective-carousel-slide');
+        slides.forEach((slide, idx) => {
+          const inner = slide.querySelector('.perspective-carousel-slide-inner');
+          if (!inner) return;
+          const dist = (currentIndex - progress) - idx;
+          const rotY = dist * rotationStep;
+          const absDist = Math.abs(dist);
+          const scale = Math.max(0.72, Math.min(1, 1 - absDist * (1 - inactiveScale)));
+          inner.style.transform = `translate3d(0, 0, 0) rotateY(${rotY}deg) scale(${scale})`;
+        });
+      }
+    });
+
+    window.addEventListener('mouseup', endDragOrSwipe);
+
+    // Touch support (1-finger swap / pan, 2-finger pinch-zoom)
     let touchStartDist = 0;
     let initialZoomOnTouch = 1;
     let touchStartX = 0;
     let touchStartY = 0;
 
     viewport.addEventListener('touchstart', (e) => {
+      if (e.target.closest('.perspective-control-btn') || e.target.closest('.perspective-dot') || e.target.closest('.lightbox-toolbar') || e.target.closest('.lightbox-close')) {
+        return;
+      }
+
       if (e.touches.length === 2) {
+        if (isSwiping) {
+          isSwiping = false;
+          if (track) {
+            track.classList.remove('is-dragging');
+            track.style.transition = '';
+            selectSlide(currentIndex);
+          }
+        }
         touchStartDist = Math.hypot(
           e.touches[0].clientX - e.touches[1].clientX,
           e.touches[0].clientY - e.touches[1].clientY
         );
         initialZoomOnTouch = currentZoom;
-      } else if (e.touches.length === 1 && currentZoom > 1) {
-        isDragging = true;
-        touchStartX = e.touches[0].clientX - panX * currentZoom;
-        touchStartY = e.touches[0].clientY - panY * currentZoom;
+      } else if (e.touches.length === 1) {
+        if (currentZoom > 1) {
+          isDragging = true;
+          touchStartX = e.touches[0].clientX - panX * currentZoom;
+          touchStartY = e.touches[0].clientY - panY * currentZoom;
+        } else {
+          if (!carouselItems.length || !track) return;
+          isSwiping = true;
+          wasSwiping = false;
+          swipeStartX = e.touches[0].clientX;
+          swipeStartY = e.touches[0].clientY;
+          swipeDeltaX = 0;
+          swipeStartTime = Date.now();
+          cachedSlideWidth = getSafeSlideWidth();
+          track.classList.add('is-dragging');
+          track.style.transition = 'none';
+          track.querySelectorAll('.perspective-carousel-slide-inner').forEach(inner => {
+            inner.style.transition = 'none';
+          });
+        }
       }
     }, { passive: true });
 
     viewport.addEventListener('touchmove', (e) => {
       if (e.touches.length === 2 && touchStartDist > 0) {
+        if (e.cancelable) e.preventDefault();
         const dist = Math.hypot(
           e.touches[0].clientX - e.touches[1].clientX,
           e.touches[0].clientY - e.touches[1].clientY
@@ -430,18 +557,57 @@ function initPortfolioAndLightbox() {
         const factor = dist / touchStartDist;
         applyZoom(initialZoomOnTouch * factor);
       } else if (e.touches.length === 1 && isDragging && currentZoom > 1) {
+        if (e.cancelable) e.preventDefault();
         panX = (e.touches[0].clientX - touchStartX) / currentZoom;
         panY = (e.touches[0].clientY - touchStartY) / currentZoom;
         const activeImg = getActiveSlideImg();
         if (activeImg) {
           activeImg.style.transform = `scale(${currentZoom}) translate(${panX}px, ${panY}px)`;
         }
-      }
-    }, { passive: true });
+      } else if (e.touches.length === 1 && isSwiping && currentZoom <= 1) {
+        swipeDeltaX = e.touches[0].clientX - swipeStartX;
+        const swipeDeltaY = e.touches[0].clientY - swipeStartY;
 
-    viewport.addEventListener('touchend', () => {
-      isDragging = false;
+        if (Math.abs(swipeDeltaX) > 6 || Math.abs(swipeDeltaX) > Math.abs(swipeDeltaY)) {
+          if (e.cancelable) e.preventDefault();
+          wasSwiping = true;
+        }
+
+        const maxIndex = Math.max(0, carouselItems.length - 1);
+        let effectiveDelta = swipeDeltaX;
+        if (!loop) {
+          if ((currentIndex === 0 && effectiveDelta > 0) || (currentIndex === maxIndex && effectiveDelta < 0)) {
+            effectiveDelta *= 0.28;
+          }
+        }
+
+        const baseOffset = -(currentIndex * cachedSlideWidth + cachedSlideWidth / 2);
+        track.style.transform = `translate3d(${baseOffset + effectiveDelta}px, -50%, 0)`;
+
+        const progress = effectiveDelta / cachedSlideWidth;
+        const slides = track.querySelectorAll('.perspective-carousel-slide');
+        slides.forEach((slide, idx) => {
+          const inner = slide.querySelector('.perspective-carousel-slide-inner');
+          if (!inner) return;
+          const dist = (currentIndex - progress) - idx;
+          const rotY = dist * rotationStep;
+          const absDist = Math.abs(dist);
+          const scale = Math.max(0.72, Math.min(1, 1 - absDist * (1 - inactiveScale)));
+          inner.style.transform = `translate3d(0, 0, 0) rotateY(${rotY}deg) scale(${scale})`;
+        });
+      }
+    }, { passive: false });
+
+    viewport.addEventListener('touchend', (e) => {
+      if (e.touches.length < 2) {
+        touchStartDist = 0;
+      }
+      endDragOrSwipe();
+    });
+
+    viewport.addEventListener('touchcancel', () => {
       touchStartDist = 0;
+      endDragOrSwipe();
     });
   }
 
@@ -457,21 +623,21 @@ function initPortfolioAndLightbox() {
     currentIndex = resolvedIndex;
     resetZoom();
 
-    const safeSlideWidth = getSafeSlideWidth();
+    cachedSlideWidth = getSafeSlideWidth();
     const slides = Array.from(track.querySelectorAll('.perspective-carousel-slide'));
 
     slides.forEach(slide => {
-      slide.style.width = `${safeSlideWidth}px`;
+      slide.style.width = `${cachedSlideWidth}px`;
     });
 
-    const trackOffset = -(currentIndex * safeSlideWidth + safeSlideWidth / 2);
+    const trackOffset = -(currentIndex * cachedSlideWidth + cachedSlideWidth / 2);
     if (isInitial) {
       track.style.transition = 'none';
-      track.style.transform = `translateX(${trackOffset}px) translateY(-50%)`;
+      track.style.transform = `translate3d(${trackOffset}px, -50%, 0)`;
       void track.offsetWidth;
       track.style.transition = '';
     } else {
-      track.style.transform = `translateX(${trackOffset}px) translateY(-50%)`;
+      track.style.transform = `translate3d(${trackOffset}px, -50%, 0)`;
     }
 
     slides.forEach((slide, idx) => {
@@ -485,11 +651,11 @@ function initPortfolioAndLightbox() {
       if (inner) {
         if (isInitial) {
           inner.style.transition = 'none';
-          inner.style.transform = `rotateY(${rotY}deg) scale(${scale})`;
+          inner.style.transform = `translate3d(0, 0, 0) rotateY(${rotY}deg) scale(${scale})`;
           void inner.offsetWidth;
           inner.style.transition = '';
         } else {
-          inner.style.transform = `rotateY(${rotY}deg) scale(${scale})`;
+          inner.style.transform = `translate3d(0, 0, 0) rotateY(${rotY}deg) scale(${scale})`;
         }
       }
 
@@ -497,15 +663,15 @@ function initPortfolioAndLightbox() {
         slide.classList.add('active');
         if (btn) btn.setAttribute('aria-current', 'true');
         if (labelWrap) {
-          labelWrap.style.filter = 'blur(0px)';
           labelWrap.style.opacity = '1';
+          labelWrap.style.transform = 'translate3d(0, 0, 0)';
         }
       } else {
         slide.classList.remove('active');
         if (btn) btn.removeAttribute('aria-current');
         if (labelWrap) {
-          labelWrap.style.filter = 'blur(2px)';
           labelWrap.style.opacity = '0';
+          labelWrap.style.transform = 'translate3d(0, 8px, 0)';
         }
       }
     });
@@ -552,7 +718,12 @@ function initPortfolioAndLightbox() {
     `).join('');
 
     track.querySelectorAll('.perspective-carousel-card-btn').forEach(btn => {
-      btn.addEventListener('click', () => {
+      btn.addEventListener('click', (e) => {
+        if (wasSwiping) {
+          e.preventDefault();
+          e.stopPropagation();
+          return;
+        }
         const slide = btn.closest('.perspective-carousel-slide');
         if (slide) {
           const idx = parseInt(slide.getAttribute('data-index'), 10);
