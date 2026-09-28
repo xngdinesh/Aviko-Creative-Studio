@@ -6,3 +6,4 @@ site data/
 # OS metadata
 .DS_Store
 Thumbs.db
+node_modules/

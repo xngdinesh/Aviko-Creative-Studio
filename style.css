@@ -142,9 +142,6 @@ h1, h2, h3, h4, h5, h6 {
   line-height: 1.2;
 }
 
-.text-gold {
-  color: var(--gold-primary);
-}
 
 .gold-gradient-text {
   background: linear-gradient(135deg, #ffffff 15%, var(--gold-light) 65%, var(--gold-primary) 100%);
@@ -609,55 +606,6 @@ h1, h2, h3, h4, h5, h6 {
 
 .hero-emblem-card:hover .hero-emblem-img-wrap img {
   transform: scale(1.025);
-}
-
-.hero-emblem-badge {
-  position: absolute;
-  bottom: 1.125rem;
-  left: 1.125rem;
-  right: 1.125rem;
-  padding: 0.75rem 1rem;
-  background: rgba(15, 18, 26, 0.9);
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
-  border: 1px solid var(--gold-border);
-  border-radius: var(--radius-sm);
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-}
-
-.badge-text-title {
-  font-family: var(--font-display);
-  font-size: 0.9375rem;
-  font-weight: 700;
-  color: #ffffff;
-}
-
-.badge-text-sub {
-  font-size: 0.8125rem;
-  color: var(--gold-light);
-}
-
-.badge-indicator {
-  display: flex;
-  align-items: center;
-  gap: 0.3rem;
-  font-size: 0.8125rem;
-  font-weight: 600;
-  color: #10b981;
-  background: rgba(16, 185, 129, 0.12);
-  padding: 0.2rem 0.5rem;
-  border-radius: var(--radius-full);
-}
-
-.badge-indicator::before {
-  content: '';
-  width: 5px;
-  height: 5px;
-  border-radius: 50%;
-  background-color: #10b981;
-  box-shadow: 0 0 5px #10b981;
 }
 
 /* ==========================================================================
@@ -1392,52 +1340,6 @@ h1, h2, h3, h4, h5, h6 {
   font-size: 1.0625rem;
   color: #ffffff;
   font-weight: 500;
-}
-
-.social-links-wrap {
-  display: flex;
-  flex-direction: column;
-  gap: 0.625rem;
-}
-
-.social-links-title {
-  font-size: 0.875rem;
-  font-weight: 700;
-  color: var(--text-muted);
-  text-transform: uppercase;
-  letter-spacing: 0.08em;
-}
-
-.social-icons-row {
-  display: flex;
-  gap: 0.625rem;
-}
-
-.social-btn {
-  width: 36px;
-  height: 36px;
-  border-radius: var(--radius-xs);
-  background: var(--bg-surface);
-  border: 1px solid var(--border-subtle);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: var(--text-muted);
-  transition: all var(--transition-fast);
-}
-
-.social-btn svg {
-  width: 16px;
-  height: 16px;
-  stroke: currentColor;
-  fill: none;
-}
-
-.social-btn:hover {
-  background: var(--gold-subtle);
-  border-color: var(--gold-border);
-  color: var(--gold-light);
-  transform: translateY(-2px);
 }
 
 /* Contact Form */
@@ -2354,26 +2256,6 @@ h1, h2, h3, h4, h5, h6 {
   .stat-label {
     font-size: 0.72rem;
     overflow-wrap: break-word;
-  }
-
-  .hero-emblem-badge {
-    left: 0.5rem;
-    right: 0.5rem;
-    bottom: 0.5rem;
-    padding: 0.4rem 0.65rem;
-  }
-
-  .badge-text-title {
-    font-size: 0.8125rem;
-  }
-
-  .badge-text-sub {
-    font-size: 0.72rem;
-  }
-
-  .badge-indicator {
-    font-size: 0.72rem;
-    padding: 0.15rem 0.4rem;
   }
 
   .portfolio-filter-bar {

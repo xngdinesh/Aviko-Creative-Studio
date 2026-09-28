@@ -2,9 +2,28 @@
   "version": 2,
   "cleanUrls": true,
   "trailingSlash": false,
+  "buildCommand": "node build.js",
   "headers": [
     {
+      "source": "/(.*)\\.(css|js|woff2|woff|ttf|svg|ico|png|jpg|jpeg|webp|mp4|webm)",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=31536000, immutable"
+        }
+      ]
+    },
+    {
       "source": "/assets/(.*)",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=31536000, immutable"
+        }
+      ]
+    },
+    {
+      "source": "/videos/(.*)",
       "headers": [
         {
           "key": "Cache-Control",
