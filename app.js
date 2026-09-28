@@ -125,7 +125,7 @@ function initPortfolioAndLightbox() {
   const allCards = Array.from(document.querySelectorAll('.portfolio-card'));
   
   const modal = document.getElementById('lightboxModal');
-  const closeBtn = modal ? modal.querySelector('.lightbox-close') : null;
+  const closeBtns = modal ? modal.querySelectorAll('.lightbox-close, #lightboxClose, .lightbox-close-btn') : [];
   const zoomInBtn = document.getElementById('lightboxZoomIn');
   const zoomOutBtn = document.getElementById('lightboxZoomOut');
   const zoomResetBtn = document.getElementById('lightboxZoomReset');
@@ -795,7 +795,7 @@ function initPortfolioAndLightbox() {
 
   if (prevBtn) prevBtn.addEventListener('click', () => selectSlide(currentIndex - 1));
   if (nextBtn) nextBtn.addEventListener('click', () => selectSlide(currentIndex + 1));
-  if (closeBtn) closeBtn.addEventListener('click', closeLightbox);
+  closeBtns.forEach(btn => btn.addEventListener('click', closeLightbox));
 
   allCards.forEach(card => {
     card.addEventListener('click', () => {
@@ -808,6 +808,10 @@ function initPortfolioAndLightbox() {
 
   if (modal) {
     modal.addEventListener('click', (e) => {
+      if (e.target.closest('.lightbox-close') || e.target.closest('#lightboxClose') || e.target.closest('.lightbox-close-btn')) {
+        closeLightbox();
+        return;
+      }
       if (e.target === modal || e.target.classList.contains('lightbox-dialog')) {
         closeLightbox();
       }
