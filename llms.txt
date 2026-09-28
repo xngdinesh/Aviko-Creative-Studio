@@ -1,0 +1,22 @@
+# Aviko Media
+
+> Strategic design and commercial video production agency delivering brand identities, packaging architecture, full-stack web applications, and commercial film.
+
+Aviko Media is an elite creative studio combining strategic brand positioning, aesthetic rigor, and technical execution. The studio serves ambitious enterprises, high-growth startups, and creators across visual design, physical packaging, motion cinematography, and bespoke web application development.
+
+## Core Navigation
+
+- [Home](https://aviko-creative-studio.vercel.app/): Studio introduction, capability pillars, client delivery statistics, and creative consultation entry.
+- [Capabilities](https://aviko-creative-studio.vercel.app/services): Detailed scope of creative disciplines across Graphic Design (brand mark systems, retail packaging, advertising collateral), Video Production (cinematic commercials, 3D motion graphics, campaign reels), and Web Development (custom responsive web apps, interactive UI/UX, headless e-commerce).
+- [Selected Work](https://aviko-creative-studio.vercel.app/portfolio): Interactive portfolio archive featuring filtered galleries and a 3D perspective viewer covering visual identity systems, packaging mockups, marketing collateral, and UI designs.
+- [Commercial Showreels](https://aviko-creative-studio.vercel.app/showreel): High-definition video player showcase featuring broadcast commercials, kinetic product films, and short-form social reels.
+- [Agency](https://aviko-creative-studio.vercel.app/about): Studio ethos, production methodology, core craftsmanship values, and agency milestone metrics.
+- [Consultation](https://aviko-creative-studio.vercel.app/contact): Direct project intake desk, consultation booking, proposal requests, and official studio email contact (avikomedia07@gmail.com).
+
+## Technical & Contact Details
+
+- **Studio Focus**: Graphic Design, Brand Identity, Structural Packaging, Commercial Video Production, Bespoke Web Development
+- **Canonical Domain**: https://aviko-creative-studio.vercel.app/
+- **Official Inquiries**: avikomedia07@gmail.com
+- **Sitemap**: https://aviko-creative-studio.vercel.app/sitemap.xml
+- **Robots Policy**: Open for all search engines and AI assistants
